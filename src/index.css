@@ -3,6 +3,18 @@
 
 :root {
   font-family: "Plus Jakarta Sans", sans-serif;
-  background-color: #f0f5f0;
+  background-color: #efefee;
   overflow-x: hidden;
+}
+
+/* For Firefox and Old Edge */
+.no-scrollbar {
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* For Chromium based browser and Safari */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
