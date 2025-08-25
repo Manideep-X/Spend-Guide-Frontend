@@ -5,6 +5,7 @@
   font-family: "Plus Jakarta Sans", sans-serif;
   background-color: #efefee;
   overflow-x: hidden;
+  transition: all 0.5s ease-in-out;
 }
 
 /* For Firefox and Old Edge */
