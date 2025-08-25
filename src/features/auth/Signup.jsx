@@ -23,12 +23,12 @@ const Signup = () => {
       <img 
         src={ASSETS.backgroundLight}
         alt="Background"
-        className="absolute w-full -z-10" 
+        className="absolute h-full w-full -z-10 object-cover" 
       />
 
-      <section className="mx-auto mt-8 max-w-fit max-h-5/6 px-28 pt-3 pb-12 bg-[#ffffffe8] no-scrollbar shadow-2xl/30 rounded-3xl">
+      <section className="mx-auto mt-8 max-w-fit max-h-5/6 px-28 py-7 bg-[#ffffffe8] no-scrollbar shadow-2xl/30 rounded-3xl">
 
-        <figure className="flex items-center justify-around gap-5 w-fit mx-auto">
+        <figure className="flex flex-col items-center justify-around w-fit mx-auto">
           <img src={ASSETS.iconNoBg} alt="Spend Guide" className="w-[60px] mx-auto" />
           <figcaption className="text-sm text-center font-bold">
             <header className="text-4xl font-extrabold">
@@ -38,6 +38,7 @@ const Signup = () => {
         </figcaption>
         </figure>
 
+        {/* Form for registering new user */}
         <form action="" method="post" className="py-4">
           
             <NameInput 
@@ -53,7 +54,7 @@ const Signup = () => {
               type = "email"
               onChange = {e => setEmail(e.target.value)}
               value = {email}
-              placeholder = "example@xyz.com"
+              placeholder = "Enter your email"
             />
             
             <Input 
@@ -62,7 +63,7 @@ const Signup = () => {
               type = "password"
               onChange = {e => setPassword(e.target.value)}
               value = {password}
-              placeholder = ""
+              placeholder = "Enter a password"
             />
 
             <button type="submit" 
@@ -73,12 +74,15 @@ const Signup = () => {
               Sign Up
             </button>
         </form>
+
         <aside className="text-center text-sm font-medium">
           Already have an account? Then,
-          <Link to="/login" className="text-[#25933b] hover:text-[#207f33] active:text-[#1d722e] font-bold underline"> try signing in &#x2924;</Link>
+          <Link to="/signin" className="text-[#25933b] hover:text-[#207f33] active:text-[#1d722e] font-bold underline"> try signing in &#x2924;</Link>
         </aside>
         
       </section>
+
+      {/* The footer section */}
       <Footer />
     </main>
   )
