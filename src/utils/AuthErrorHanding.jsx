@@ -1,10 +1,15 @@
-import { useNavigate } from "react-router-dom";
-
 const AuthErrorHanding = async (res) => {
-    const navigate = useNavigate();
     
     if (!res.ok) {
-        const resData = await res.json();
+        
+        // Need to check if the response have a body before trying to convert it to json.
+        let resData = {};
+        try {
+            resData = await res.json();
+        } catch (error) {
+            resData = {}
+        }
+
         let message = `Unexpected error happened: ERROR ${res.status}`;
         
         if(res.status >= 400 || res.status < 500) {
@@ -24,12 +29,10 @@ const AuthErrorHanding = async (res) => {
         
         else if(res.status >= 500) {
             message = "The server is down or under maintenance at the monent. Please try again later!"
-            navigate("/server-down", { state: { message: `${message}` } });
-            throw new Error(message);
+            throw { status: res.status, message, redirect: "/signup" };
         }
         
-        navigate("/login", { state: { message: `${message}` } });
-        throw new Error(message);
+        throw { status: res.status, message, redirect: "/signin" };
         
     }
 

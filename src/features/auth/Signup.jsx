@@ -3,6 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../layout/Footer";
 import { ASSETS } from "../../utils/GetAssets";
 import { Input, NameInput } from "./components/Input";
+import { validateSignup } from "./components/validating";
+import { signup } from "../../services/AuthService";
+import toast from "react-hot-toast";
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
 const Signup = () => {
   
@@ -10,10 +14,46 @@ const Signup = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [errMsg, setErrMsg] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [errMsg, setErrMsg] = useState({})
 
   const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    
+    e.preventDefault();
+    setIsLoading(true);
+
+    // validating the form fields
+    const newErrorMsg = validateSignup(firstName, lastName, email, password);
+    setErrMsg(newErrorMsg);
+
+    if (Object.keys(newErrorMsg).length != 0) {
+      setIsLoading(false);
+    }
+    else {
+      // If the form doesn't have any errors then it will be submitted
+      try {
+        // signup() will return a json object
+        const response = await signup({ firstName, lastName, email, password })
+        toast.success("You are registered! Check your email to activate your account", {
+          duration: Infinity,
+          dismissible: true
+        })
+        navigate("/signin")
+      } 
+      catch(err) {
+        console.log(err)
+        setIsLoading(false)
+
+        toast.error(err.message)
+        if (err.status != 403) navigate(err.redirect)
+        setErrMsg({ ...errMsg, ["unknown"] : `Unknown error occured:${err.message}` })
+      }
+    }
+
+  }
 
   return (
     <main
@@ -39,22 +79,24 @@ const Signup = () => {
         </figure>
 
         {/* Form for registering new user */}
-        <form action="" method="post" className="py-4">
+        <form onSubmit={handleSubmit} method="post" className="py-4">
           
             <NameInput 
               onChangeFirst = {e => setFirstName(e.target.value)}
               onChangeLast = {e => setLastName(e.target.value)}
               valueFirst = {firstName}
               valueLast = {lastName}
+              errorMsg = {errMsg}
             />
             
             <Input 
               idName = "email"
               label = "Email"
-              type = "email"
+              type = "text"
               onChange = {e => setEmail(e.target.value)}
               value = {email}
               placeholder = "Enter your email"
+              errorMsg = {errMsg}
             />
             
             <Input 
@@ -64,14 +106,31 @@ const Signup = () => {
               onChange = {e => setPassword(e.target.value)}
               value = {password}
               placeholder = "Enter a password"
+              errorMsg = {errMsg}
             />
 
+            {/* Display unexpected error message */}
+            {
+              errMsg.unknown &&
+              <div className="w-[450px] h-[60px] text-sm bg-red-300 text-red-600 px-4 py-2 overflow-y-auto rounded-lg">
+                {errMsg.unknown}
+              </div>
+            }
+
             <button type="submit" 
+              disabled={isLoading}
               className="py-3 px-9 rounded-lg mt-6 mb-2 shadow-lg/30 flex mx-auto
                         bg-[#25933b] hover:bg-[#207f33] active:bg-[#1d722e]
                         text-white hover:cursor-pointer"
             >
-              Sign Up
+              {
+                isLoading ?
+                <p className="text-[#ffffffb0] flex gap-2">
+                  <ArrowPathIcon className="animate-spin w-[18px] h-[18px]" />
+                  Signing up...
+                </p>
+                : ("Sign up")
+              }
             </button>
         </form>
 
