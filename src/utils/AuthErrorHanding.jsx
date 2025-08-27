@@ -12,8 +12,8 @@ const AuthErrorHanding = async (res) => {
 
         let message = `Unexpected error happened: ERROR ${res.status}`;
         
-        if(res.status >= 400 || res.status < 500) {
-            if(res.status >= 400 || res.status < 409) {
+        if(res.status >= 400 && res.status < 500) {
+            if(res.status >= 400 && res.status < 409) {
                 if(resData.message) {
                     message = resData.message;
                 }

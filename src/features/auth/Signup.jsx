@@ -7,6 +7,7 @@ import { validateSignup } from "./components/validating";
 import { signup } from "../../services/AuthService";
 import toast from "react-hot-toast";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
+import ImageSelector from "./components/ImageSelector";
 
 const Signup = () => {
   
@@ -15,8 +16,8 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const [errMsg, setErrMsg] = useState({})
+  const [errMsg, setErrMsg] = useState({});
+  const [profileImg, setProfileImg] = useState(null);
 
   const navigate = useNavigate();
 
@@ -35,6 +36,10 @@ const Signup = () => {
     else {
       // If the form doesn't have any errors then it will be submitted
       try {
+
+        // Upload profile image if present
+        
+
         // signup() will return a json object
         const response = await signup({ firstName, lastName, email, password })
         toast.success("You are registered! Check your email to activate your account", {
@@ -66,7 +71,7 @@ const Signup = () => {
         className="absolute h-full w-full -z-10 object-cover" 
       />
 
-      <section className="mx-auto mt-8 max-w-fit max-h-5/6 px-28 py-7 bg-[#ffffffe8] no-scrollbar shadow-2xl/30 rounded-3xl">
+      <section className="mx-auto mt-8 max-w-fit max-h-5/6 px-28 py-7 bg-[#ffffffe8] overflow-y-scroll overflow-x-hidden thin-scrollbar shadow-2xl/30 rounded-3xl">
 
         <figure className="flex flex-col items-center justify-around w-fit mx-auto">
           <img src={ASSETS.iconNoBg} alt="Spend Guide" className="w-[60px] mx-auto" />
@@ -80,58 +85,64 @@ const Signup = () => {
 
         {/* Form for registering new user */}
         <form onSubmit={handleSubmit} method="post" className="py-4">
+
+          <ImageSelector
+            image = {profileImg}
+            setImage = {setProfileImg}
+          />
+
+          <NameInput 
+            onChangeFirst = {e => setFirstName(e.target.value)}
+            onChangeLast = {e => setLastName(e.target.value)}
+            valueFirst = {firstName}
+            valueLast = {lastName}
+            errorMsg = {errMsg}
+          />
           
-            <NameInput 
-              onChangeFirst = {e => setFirstName(e.target.value)}
-              onChangeLast = {e => setLastName(e.target.value)}
-              valueFirst = {firstName}
-              valueLast = {lastName}
-              errorMsg = {errMsg}
-            />
-            
-            <Input 
-              idName = "email"
-              label = "Email"
-              type = "text"
-              onChange = {e => setEmail(e.target.value)}
-              value = {email}
-              placeholder = "Enter your email"
-              errorMsg = {errMsg}
-            />
-            
-            <Input 
-              idName = "password"
-              label = "Password"
-              type = "password"
-              onChange = {e => setPassword(e.target.value)}
-              value = {password}
-              placeholder = "Enter a password"
-              errorMsg = {errMsg}
-            />
+          <Input 
+            idName = "email"
+            label = "Email"
+            type = "text"
+            onChange = {e => setEmail(e.target.value)}
+            value = {email}
+            placeholder = "Enter your email"
+            errorMsg = {errMsg}
+          />
+          
+          <Input 
+            idName = "password"
+            label = "Password"
+            type = "password"
+            onChange = {e => setPassword(e.target.value)}
+            value = {password}
+            placeholder = "Enter a password"
+            errorMsg = {errMsg}
+          />
 
-            {/* Display unexpected error message */}
+          {/* Display unexpected error message */}
+          {
+            errMsg.unknown &&
+            <div className="w-[300px] h-[60px] text-sm bg-red-300 text-red-600 px-4 py-2 overflow-y-auto rounded-lg">
+              {errMsg.unknown}
+            </div>
+          }
+
+          <button type="submit" 
+            disabled={isLoading}
+            className="py-3 px-9 rounded-lg mt-6 mb-2 shadow-lg/30 flex mx-auto
+                      bg-[#25933b] hover:bg-[#207f33] active:bg-[#1d722e]
+                      text-white hover:cursor-pointer 
+                      disabled:cursor-not-allowed disabled:bg-[#1d722e]"
+          >
             {
-              errMsg.unknown &&
-              <div className="w-[450px] h-[60px] text-sm bg-red-300 text-red-600 px-4 py-2 overflow-y-auto rounded-lg">
-                {errMsg.unknown}
-              </div>
+              isLoading ?
+              <p className="text-[#ffffffb0] flex gap-2 items-center">
+                <ArrowPathIcon className="animate-spin w-[18px] h-[18px]" />
+                Signing Up...
+              </p>
+              : ("Sign Up")
             }
-
-            <button type="submit" 
-              disabled={isLoading}
-              className="py-3 px-9 rounded-lg mt-6 mb-2 shadow-lg/30 flex mx-auto
-                        bg-[#25933b] hover:bg-[#207f33] active:bg-[#1d722e]
-                        text-white hover:cursor-pointer"
-            >
-              {
-                isLoading ?
-                <p className="text-[#ffffffb0] flex gap-2">
-                  <ArrowPathIcon className="animate-spin w-[18px] h-[18px]" />
-                  Signing up...
-                </p>
-                : ("Sign up")
-              }
-            </button>
+          </button>
         </form>
 
         <aside className="text-center text-sm font-medium">
