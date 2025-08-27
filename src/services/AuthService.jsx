@@ -14,12 +14,8 @@ const signin = async ({email, password}) => {
     // Error handling for different status code
     const resOK = await AuthErrorHanding(res);
 
-    // Need to fetch that JWT token and save it in the local storage
-    const userDetails = await resOK.json();
-    if (userDetails.token) {
-        localStorage.setItem("token", userDetails.token);
-    }
-    return userDetails;
+    // This will return the json body of the response
+    return await resOK.json();
     
 }
 
@@ -34,6 +30,8 @@ const signup = async ({firstName, lastName, email, password}) => {
 
     // Error handling for different status code
     const resOK = await AuthErrorHanding(res);
+
+    // This will return the json body of the response
     return await resOK.json();
     
 }
