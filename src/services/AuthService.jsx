@@ -3,52 +3,38 @@ import GetReqHeader from "../utils/GetReqHeader";
 import { API_ENDPOINTS } from "../utils/EndpointsConfig";
 
 // Fetching from /login endpoint
-const signin = async (email, password) => {
+const signin = async ({email, password}) => {
 
     const res = await fetch(`${API_ENDPOINTS.login}`, {
         method: "POST",
-        headers: GetReqHeader(),
+        headers: GetReqHeader({ resType: "signin" }),
         body: JSON.stringify({email, password})
     });
     
     // Error handling for different status code
-    const resOK = null;
-    try {
-        resOK = await AuthErrorHanding(res);
-    } catch (error) {
-        console.error(error);
-    }
+    const resOK = await AuthErrorHanding(res);
 
     // Need to fetch that JWT token and save it in the local storage
-    if(resOK != null) {
-        const userDetails = await resOK.json();
-        if (userDetails.token) {
-            localStorage.setItem("token", userDetails.token);
-        }
-        return userDetails;
+    const userDetails = await resOK.json();
+    if (userDetails.token) {
+        localStorage.setItem("token", userDetails.token);
     }
-    return null;
+    return userDetails;
     
 }
 
 // Fetching from /register endpoint
-const signup = async (userDetails) => {
+const signup = async ({firstName, lastName, email, password}) => {
     
     const res = await fetch(`${API_ENDPOINTS.register}`, {
         method: "POST",
-        headers: GetReqHeader(),
-        body: JSON.stringify(userDetails)
+        headers: GetReqHeader({ resType: "signup" }),
+        body: JSON.stringify({ firstName, lastName, email, password })
     });
 
     // Error handling for different status code
-    const resOK = null;
-    try {
-        resOK = await AuthErrorHanding(res);
-        return await resOK.json();
-    } catch (error) {
-        console.error(error);
-    }
-    return null;
+    const resOK = await AuthErrorHanding(res);
+    return await resOK.json();
     
 }
 
