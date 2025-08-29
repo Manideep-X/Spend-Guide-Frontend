@@ -8,6 +8,7 @@ import Category from '../features/category/Category'
 import Filter from '../features/filter/Filter'
 
 const AppRoutes = () => {
+
   return (
     <Routes>
 
@@ -15,16 +16,27 @@ const AppRoutes = () => {
       <Route path='/signin' element={<Signin />} />
       <Route path='/signup' element={<Signup />} />
 
-      {/* Category routes */}
-      <Route path='/category' element={<Category />} />
-      <Route path='/income' element={<Income />} />
-      <Route path='/expense' element={<Expense />} />
-      
-      {/* Filtering routes */}
-      <Route path='/filter' element={<Filter />} />
-
-      {/* Dashboard routes */}
-      <Route path='/dashboard' element={<Home />} />
+      {/* Need to check if the token exists before accessing these routes */}
+        {/* Category routes */}
+        <Route path='/category' element={
+          localStorage.getItem("token") ? <Category /> : <Navigate to='/signin' replace />
+        } />
+        <Route path='/income' element={
+          localStorage.getItem("token") ? <Income /> : <Navigate to='/signin' replace />
+        } />
+        <Route path='/expense' element={
+          localStorage.getItem("token") ? <Expense /> : <Navigate to='/signin' replace />
+        } />
+        
+        {/* Filtering routes */}
+        <Route path='/filter' element={
+          localStorage.getItem("token") ? <Filter /> : <Navigate to='/signin' replace />
+        } />
+  
+        {/* Dashboard routes */}
+        <Route path='/dashboard' element={
+          localStorage.getItem("token") ? <Home /> : <Navigate to='/signin' replace />
+        } />
 
       {/* Default routing */}
       <Route path='*' element={<Navigate to='/signin' replace />} />
