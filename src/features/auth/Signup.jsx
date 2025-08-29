@@ -8,6 +8,8 @@ import { signup } from "../../services/AuthService";
 import toast from "react-hot-toast";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import ImageSelector from "./components/ImageSelector";
+import { uploadImg } from "../../services/ImageService";
+import { CheckBadgeIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
 const Signup = () => {
   
@@ -38,14 +40,31 @@ const Signup = () => {
       try {
 
         // Upload profile image if present
-        
+        // uploadImg() will return image URL
+        let imageUrl = "";
+        if (profileImg) {
+          imageUrl = await uploadImg(profileImg) || "" ;
+        }
 
         // signup() will return a json object
-        const response = await signup({ firstName, lastName, email, password })
-        toast.success("You are registered! Check your email to activate your account", {
-          duration: Infinity,
-          dismissible: true
-        })
+        const response = await signup({ firstName, lastName, email, password, imageUrl })
+        
+        // custom toaster to tell user to activate their account
+        toast.custom((t) => (
+          <div className={`${t.visible ? 'animate-enter' : 'animate-leave'} 
+                        bg-green-100 border border-green-400 text-green-700 
+                        px-3 py-2 rounded flex items-center justify-center gap-2 font-medium`}>
+            <CheckBadgeIcon className="text-green-700" /> 
+            <span className="block sm:inline">
+              You are registered! Check your email to activate your account
+            </span>
+            <button className="p-2 rounded-md hover:bg-[#0000001a] hover:cursor-pointer active:bg-[#00000030]"
+                    onClick={() => toast.dismiss(t.id)}>
+              <XMarkIcon className="w-5 h-5 font-medium" />
+            </button>
+          </div>
+        ), { duration: Infinity });
+        
         navigate("/signin")
       } 
       catch(err) {
@@ -65,13 +84,15 @@ const Signup = () => {
       className="relative w-full h-[100vh] items-center overflow-hidden"
     >
       {/* Setting the background image */}
+      <div className="absolute h-full w-full -z-9 object-cover backdrop-blur-[0.5px] bg-[#ffffff3a]">
+      </div>
       <img 
-        src={ASSETS.backgroundLight}
+        src={ASSETS.background}
         alt="Background"
-        className="absolute h-full w-full -z-10 object-cover" 
+        className="absolute h-full w-full -z-10 object-cover"
       />
 
-      <section className="mx-auto mt-8 max-w-fit max-h-5/6 px-28 py-7 bg-[#ffffffe8] overflow-y-scroll overflow-x-hidden thin-scrollbar shadow-2xl/30 rounded-3xl">
+      <section className="mx-auto mt-8 max-w-fit max-h-5/6 px-28 py-7 bg-[#ffffffe8] overflow-y-scroll overflow-x-hidden thin-scrollbar shadow-2xl/50 rounded-3xl">
 
         <figure className="flex flex-col items-center justify-around w-fit mx-auto">
           <img src={ASSETS.iconNoBg} alt="Spend Guide" className="w-[60px] mx-auto" />

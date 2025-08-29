@@ -9,7 +9,8 @@ const ImageSelector = ({ image, setImage }) => {
     const handleImgOnChange = (element) => {
 
         if (image) {
-            handleImgDelete();
+            setImage(null);
+            setShowImgUrl(null);
         }
 
         const imgFile = element.target.files[0];
@@ -22,6 +23,10 @@ const ImageSelector = ({ image, setImage }) => {
     }
 
     const handleImgDelete = () => {
+
+        if (imgInputRef.current) {
+            imgInputRef.current.value = "";
+        }
         setImage(null);
         setShowImgUrl(null);
     }
@@ -39,8 +44,6 @@ const ImageSelector = ({ image, setImage }) => {
                 type="file" 
                 ref={imgInputRef}
                 onChange={handleImgOnChange}
-                src="" 
-                alt=""
             />
 
             {

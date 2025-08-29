@@ -20,12 +20,12 @@ const signin = async ({email, password}) => {
 }
 
 // Fetching from /register endpoint
-const signup = async ({firstName, lastName, email, password}) => {
+const signup = async ({firstName, lastName, email, password, imageUrl}) => {
     
     const res = await fetch(`${API_ENDPOINTS.register}`, {
         method: "POST",
         headers: GetReqHeader({ resType: "signup" }),
-        body: JSON.stringify({ firstName, lastName, email, password })
+        body: JSON.stringify({ firstName, lastName, email, password, imageUrl })
     });
 
     // Error handling for different status code

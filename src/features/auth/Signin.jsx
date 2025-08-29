@@ -65,13 +65,15 @@ const Signin = () => {
       className="relative w-full h-[100vh] items-center overflow-hidden"
     >
       {/* Setting the background image */}
+      <div className="absolute h-full w-full -z-9 object-cover backdrop-blur-[0.5px] bg-[#ffffff3a]">
+      </div>
       <img 
-        src={ASSETS.backgroundLight}
+        src={ASSETS.background}
         alt="Background"
-        className="absolute h-full w-full -z-10 object-cover" 
+        className="absolute h-full w-full -z-10 object-cover"
       />
 
-      <section className="mx-auto mt-8 max-w-fit max-h-5/6 px-28 py-7 bg-[#ffffffe8] no-scrollbar shadow-2xl/30 rounded-3xl">
+      <section className="mx-auto mt-8 max-w-fit max-h-5/6 px-28 py-7 bg-[#ffffffe8] no-scrollbar shadow-2xl/50 rounded-3xl ">
 
         <figure className="flex flex-col items-center justify-around w-fit mx-auto">
           <img src={ASSETS.iconNoBg} alt="Spend Guide" className="w-[60px] mx-auto mb-3" />
