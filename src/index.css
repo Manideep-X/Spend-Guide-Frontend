@@ -3,6 +3,43 @@
 
 :root {
   font-family: "Plus Jakarta Sans", sans-serif;
-  background-color: #f0f5f0;
+  background-color: #efefee;
   overflow-x: hidden;
+  transition: all 0.5s ease-in-out 0s;
+}
+
+/* For Firefox and Old Edge */
+.no-scrollbar {
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* For Chromium based browser and Safari */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+
+.thin-scrollbar::-webkit-scrollbar, .thin-scrollbar-light::-webkit-scrollbar {
+  width: 10px;
+}
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.thin-scrollbar-light::-webkit-scrollbar-track {
+  background: #ffffff2e;
+  border-radius: 5px;
+}
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #2593359e;
+  border-radius: 5px;
+}
+.thin-scrollbar-light::-webkit-scrollbar-thumb {
+  background-color: #ffffff57;
+  border-radius: 5px;
+}
+/* Hide scrollbar buttons */
+.thin-scrollbar::-webkit-scrollbar-button, .thin-scrollbar-light::-webkit-scrollbar-button {
+  display: none;
 }
