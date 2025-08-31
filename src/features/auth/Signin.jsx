@@ -42,12 +42,12 @@ const Signin = () => {
         if (response) {
           setUser(response.user)
           localStorage.setItem("token", response.token)
+          navigate("/dashboard")
         }
         else {
           toast.error("Empty response body! Please try again")
           navigate("/login")
         }
-        navigate("/dashboard")
       } 
       catch(err) {
         console.log(err)

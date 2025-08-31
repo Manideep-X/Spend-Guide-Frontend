@@ -6,6 +6,7 @@ export const UPLOAD_PRESET_CLOUDINARY = "SpendGuide";
 export const API_ENDPOINTS = {
     login: `${API_BASE_URL}/login`,
     register: `${API_BASE_URL}/register`,
+    userDetails: `${API_BASE_URL}/profile-details`,
     income: `${API_BASE_URL}/income`,
     expense: `${API_BASE_URL}/expense`,
     category: `${API_BASE_URL}/category`,
