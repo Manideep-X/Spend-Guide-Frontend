@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { AppContext } from "../../../context/AppContextProvidor"
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { ArrowRightStartOnRectangleIcon, EllipsisHorizontalCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
@@ -9,34 +9,38 @@ const UserDetailCard = ({ handleSignout }) => {
 
 
   return (
-    <aside className="flex flex-col items-center justify-center w-full px-3 py-3 bg-[#ffffffd8] rounded-xl">
+    <aside className="flex flex-col items-center justify-center md:w-full pb-2 md:p-3 bg-[#ffffff5e] rounded-xl">
 
-        {/* Profile Image */}
-        {
-            user ?
-                <div className="w-32 h-32 mt-2 flex items-center justify-center rounded-full overflow-hidden">
-                    <img src={user.imageUrl} alt="Profile Image" className="w-32 h-32 object-cover" />
-                </div>
-            :
-                <div className="w-32 h-32 flex items-center justify-center rounded-full bg-[#1a683049]">
-                    <UserCircleIcon className="text-[#25933b8f] stroke-1 w-28" />
-                </div>
+        <div className="flex md:block items-center gap-3 pb-1">
+            {/* Profile Image */}
+            {
+                user.imageUrl ?
+                    <figure className="sm:w-32 w-22 sm:h-32 h-22 mt-2 flex items-center justify-center rounded-full overflow-hidden">
+                        <img src={user.imageUrl} alt="Profile Image" className="sm:w-32 w-22 sm:h-32 h-22 object-cover" />
+                    </figure>
+                :
+                    <figcaption className="w-32 h-32 flex items-center justify-center rounded-full bg-[#1a683049]">
+                        <UserCircleIcon className="text-[#25933b8f] stroke-1 w-28" />
+                    </figcaption>
+            }
 
-        }
+            {/* User first name */}
+            <p className="text-center font-bold text-[#423e36] md:mb-2">Hi, {user.firstName}</p>
+        </div>
 
-        {/* User first name */}
-        <p className="text-center font-bold text-[#423e36] mb-2">Hi, Manideep</p>
 
         {/* Extendable options and it's button */}
-        <aside className={`px-2 w-full overflow-hidden transition-all ${
+        <section className={`px-2 w-full overflow-hidden transition-all ${
             isExtended ? 'h-[130px]' : 'h-0'
         }`}>
 
             {/* User full name */}
-            <p className="text-center truncate pt-2 font-medium text-[#423e36]">Manideep Bhattacharyya</p>
+            <p className="text-center truncate pt-2 font-medium text-[#423e36]">
+                {user.firstName} {user.lastName}
+            </p>
 
             {/* User email address */}
-            <p className="text-center truncate pb-2 font-medium text-[#949492]">example.abc@gmail.com</p>
+            <p className="text-center truncate pb-2 font-medium text-[#949492]">{user.email}</p>
 
             {/* Signout button */}
             <button 
@@ -45,7 +49,7 @@ const UserDetailCard = ({ handleSignout }) => {
                 <ArrowRightStartOnRectangleIcon className="w-6 h-6 stroke-1" /> Signout
             </button>
 
-        </aside>
+        </section>
             
         {/* Button to toggle extendable functionality */}
         <div className="w-full px-2">

@@ -1,4 +1,4 @@
-const GetReqHeader = ({resType}) => {
+const GetReqHeader = () => {
     
     // Get token from the localStorage
     const token = localStorage.getItem("token");
@@ -6,15 +6,26 @@ const GetReqHeader = ({resType}) => {
     // Set the header data
     const headerData = {
         "Content-Type": "application/json",
-        "Accept": "application/json"
+        "Accept": "application/json",
+        "Authorization": `Bearer ${token}`
     };
-    if (token && (resType != "signin" && resType != "signup")) {
-        headerData["Authorization"] = `Bearer ${token}`
-    }
 
     // Return header
     return headerData;
 
 }
 
-export default GetReqHeader
+const GetReqHeaderAuth = () => {
+
+    // Set the header data
+    const headerData = {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    };
+
+    // Return header
+    return headerData;
+
+}
+
+export { GetReqHeaderAuth, GetReqHeader }
