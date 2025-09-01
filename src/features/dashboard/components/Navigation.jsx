@@ -1,6 +1,5 @@
-import { useContext, useRef, useState } from "react";
-import { AppContext } from "../../../context/AppContextProvidor";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { ASSETS, NAV_LINK_DETAILS } from "../../../utils/GetAssets";
 import { Squares2X2Icon } from "@heroicons/react/24/outline";
 import { Squares2X2Icon as SolidSquares2X2Icon } from "@heroicons/react/24/solid";
@@ -9,18 +8,6 @@ import UserDetailCard from "./UserDetailCard";
 const Navigation = () => {
     
     const [expandSideBar, setExpandSideBar] = useState(false);
-    const [showProfileDetails, setShowProfileDetails] = useState(false);
-    const moreOption = useRef(null);
-    const { user, setUser } = useContext(AppContext);
-    const navigate = useNavigate();
-
-    const handleSignout = () => {
-        setExpandSideBar(false);
-        setShowProfileDetails(false);
-        localStorage.clear();
-        setUser(null);
-        navigate("/signin")
-    }
 
     return (
         <nav className={`flex flex-col items-center gap-3 md:p-5 p-4 justify-between overflow-hidden
@@ -71,10 +58,10 @@ const Navigation = () => {
                                 <div className="h-full flex items-center gap-4 px-8 py-3 rounded-xl transition-all hover:shadow-[inset_2px_40px_15px_rgba(255,255,255,0.5)]">
                                     {/* Navigation icon */}
                                     <div className="w-1/4 flex items-center justify-center">
-                                        <e.notSelected className="w-7 h-7 stroke-[1.5] text-[#423E36]" />
+                                        <e.notSelected className="w-7 h-7 stroke-[1.5] text-[#423e36df]" />
                                     </div>
                                     {/* Navigation text */}
-                                    <span className="block font-semibold text-[16px] text-[#423E36] text-left">
+                                    <span className="block font-semibold text-[16px] text-[#423e36dc] text-left">
                                         {e.navOption}
                                     </span>
                                 </div>    
@@ -85,7 +72,7 @@ const Navigation = () => {
             </section>
 
             {/* User Detail extendable card */}
-            <UserDetailCard handleSignout = {handleSignout} />
+            <UserDetailCard />
 
         </nav>
     );

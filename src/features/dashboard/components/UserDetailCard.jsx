@@ -1,11 +1,22 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import { AppContext } from "../../../context/AppContextProvidor"
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { ArrowRightStartOnRectangleIcon, EllipsisHorizontalCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
-const UserDetailCard = ({ handleSignout }) => {
-    const { user } = useContext(AppContext);
+const UserDetailCard = () => {
+    const { user, setUser } = useContext(AppContext);
     const [isExtended, setIsExtended] = useState(false);
+    const navigate = useNavigate();
+
+    const handleSignout = () => {
+        setExpandSideBar(false);
+        localStorage.clear();
+        setUser(null);
+        toast.success("Successfully signed out")
+        navigate("/signin")
+    }
 
 
   return (
