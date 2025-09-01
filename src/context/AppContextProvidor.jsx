@@ -27,8 +27,10 @@ const AppContextProvidor = ({children}) => {
         } 
         catch (error) {
           console.log(error);
-          localStorage.clear();
-          setUser(null);
+          if (error.status === 400 || error.status === 403) {
+            localStorage.clear();
+            setUser(null);
+          }
           toast.error(error.message);
         }
         finally {

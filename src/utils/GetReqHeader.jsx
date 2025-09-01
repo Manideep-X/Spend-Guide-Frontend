@@ -1,7 +1,7 @@
 const GetReqHeader = () => {
     
     // Get token from the localStorage
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token") || "";
 
     // Set the header data
     const headerData = {
