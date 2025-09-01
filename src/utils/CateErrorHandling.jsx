@@ -1,16 +1,13 @@
-import { useNavigate } from "react-router-dom";
-
 const CateErrorHandling = async (res) => {
-    const navigate = useNavigate();
     
     if (!res.ok) {
+
         let message = `Unexpected error happened: ERROR ${res.status}`;
         
-        if(res.status >= 400 || res.status < 500) {
+        if(res.status >= 400 && res.status < 500) {
             if(res.status === 403) {
                 message = "Session expired or invalid token: Sign in again";
-                navigate("/login", { state: { message: `${message}` } });
-                throw new Error(message);
+                throw { status: res.status, message, redirect: "/signin" };
             }
             else if(res.status === 404) {
                 message = `Unknown Category: This Category is not present`;
@@ -22,12 +19,11 @@ const CateErrorHandling = async (res) => {
         
         else if(res.status >= 500) {
             message = "The server is down or under maintenance at the monent. Please try again later!"
-            navigate("/server-down", { state: { message: `${message}` } });
-            throw new Error(message);
+            // throw { status: res.status, message, redirect: "/server-down" };
+            throw { status: res.status, message, redirect: "/signin" };
         }
         
-        navigate("/category", { state: { message: `${message}` } });
-        throw new Error(message);
+        throw { status: res.status, message, redirect: "/category" };
         
     }
 
