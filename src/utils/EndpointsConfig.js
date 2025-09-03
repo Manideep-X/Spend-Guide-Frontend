@@ -10,6 +10,7 @@ export const API_ENDPOINTS = {
     income: `${API_BASE_URL}/income`,
     expense: `${API_BASE_URL}/expense`,
     category: `${API_BASE_URL}/category`,
+    dashboard: `${API_BASE_URL}/dashboard`,
     filter: `${API_BASE_URL}/filter`,
     uploadImg: `https://api.cloudinary.com/v1_1/${CLOUDNAME_CLOUDINARY}/image/upload`
 };

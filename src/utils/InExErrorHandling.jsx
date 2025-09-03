@@ -1,11 +1,14 @@
-import { useNavigate } from "react-router-dom";
-
-const InExErrorHandling = async (res, isItExpense) => {
-    const navigate = useNavigate();
+const InExErrorHandling = async ({ res, expenseOrIncome, isItFilter }) => {
     
     if (!res.ok) {
-        const resData = await res.json();
-        let expenseOrIncome = isItExpense ? "expense" : "income";
+
+        const resData = {};
+        try {
+            resData = await res.json();
+        } catch (error) {
+            resData = {};
+        }
+
         let message = `Unexpected error happened: ERROR ${res.status}`;
         
         if(res.status >= 400 || res.status < 500) {
@@ -17,19 +20,19 @@ const InExErrorHandling = async (res, isItExpense) => {
                     expenseOrIncome = resData.message;
                 }
                 message = `Unknown ${expenseOrIncome}: This ${expenseOrIncome} is not present`;
-                navigate(`/${expenseOrIncome}`, { state: { message: `${message}` } });
-                throw new Error(message);
+
+                if(isItFilter)
+                    throw { status: res.status, message, redirect: "/filter" };
+                
+                throw { status: res.status, message, redirect: `/${expenseOrIncome}` };
             }
         }
         
         else if(res.status >= 500) {
             message = "The server is down or under maintenance at the monent. Please try again later!"
-            navigate("/server-down", { state: { message: `${message}` } });
-            throw new Error(message);
         }
         
-        navigate("/login", { state: { message: `${message}` } });
-        throw new Error(message);
+        throw { status: res.status, message, redirect: "/signin" };
         
     }
 
