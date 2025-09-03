@@ -2,6 +2,7 @@ import CateErrorHandling from "../utils/CateErrorHandling";
 import { API_ENDPOINTS } from "../utils/EndpointsConfig"
 import { GetReqHeader } from "../utils/GetReqHeader"
 
+// Save a new category
 const saveCategory = async ({ name, iconUrl, type }) => {
     
     const res = await fetch(API_ENDPOINTS.category, {
@@ -18,6 +19,7 @@ const saveCategory = async ({ name, iconUrl, type }) => {
 
 }
 
+// Get a list of all categories
 const getCategories = async () => {
 
     const res = await fetch(API_ENDPOINTS.category, {
@@ -33,12 +35,12 @@ const getCategories = async () => {
     
 }
 
+// Gets a list of categories of a perticular type
 const getCategoriesByType = async ({ type }) => {
     
-    const res = await fetch(API_ENDPOINTS.category, {
+    const res = await fetch(`${API_ENDPOINTS.category}/${type}`, {
         method: "GET",
-        headers: GetReqHeader(),
-        body: JSON.stringify({ type })
+        headers: GetReqHeader()
     });
     
     // Error handling for different status code for fetching list of categories
@@ -49,9 +51,10 @@ const getCategoriesByType = async ({ type }) => {
     
 }
 
-const updateCategory = async ({ name, iconUrl, type }) => {
+// Updates a category by it's ID
+const updateCategory = async ({ id, name, iconUrl, type }) => {
     
-    const res = await fetch(API_ENDPOINTS.category, {
+    const res = await fetch(`${API_ENDPOINTS.category}/${id}`, {
         method: "PUT",
         headers: GetReqHeader(),
         body: JSON.stringify({ name, iconUrl, type })

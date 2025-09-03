@@ -4,7 +4,7 @@ const validateEmail = (email) => {
 
     let err = null;
     
-    if(!email) {
+    if(!email || email === "") {
         err = "Email address is required!";
     }
     else if(!emailRegex.test(email.trim())) {
@@ -41,9 +41,6 @@ const validateSignin = (email, password) => {
     const errors = {};
 
     if(!email.trim()) {
-      if(!emailRegex.test(email.trim()))
-        errors.email = "This is not a valid email address!";
-      else
         errors.email = "Email address is required!";
     }
     if(!password.trim()) {
