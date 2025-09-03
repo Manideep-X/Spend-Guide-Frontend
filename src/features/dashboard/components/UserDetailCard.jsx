@@ -11,7 +11,7 @@ const UserDetailCard = () => {
     const navigate = useNavigate();
 
     const handleSignout = () => {
-        setExpandSideBar(false);
+        setIsExtended(false);
         localStorage.clear();
         setUser(null);
         toast.success("Successfully signed out")
