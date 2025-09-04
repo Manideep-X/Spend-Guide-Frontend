@@ -54,7 +54,7 @@ const Signup = () => {
           <div className={`${t.visible ? 'animate-enter' : 'animate-leave'} 
                         bg-green-100 border border-green-400 text-green-700 
                         px-3 py-2 rounded flex items-center justify-center gap-2 font-medium`}>
-            <CheckBadgeIcon className="text-green-700" /> 
+            <CheckBadgeIcon className="text-green-700 w-16" /> 
             <span className="block sm:inline">
               You are registered! Check your email to activate your account
             </span>
