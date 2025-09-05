@@ -3,7 +3,7 @@ import { ASSETS } from "../utils/GetAssets"
 
 const Loading = () => {
     return (
-        <main className="relative flex justify-center w-full h-screen overflow-hidden p-20">
+        <main className="relative flex justify-center w-full h-screen overflow-hidden p-20 text-[#423e36]">
             
             {/* Background Image */}
             <div className="absolute h-full w-full -z-9 object-cover">

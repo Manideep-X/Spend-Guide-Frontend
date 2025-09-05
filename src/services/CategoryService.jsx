@@ -3,12 +3,12 @@ import { API_ENDPOINTS } from "../utils/EndpointsConfig"
 import { GetReqHeader } from "../utils/GetReqHeader"
 
 // Save a new category
-const saveCategory = async ({ name, iconUrl, type }) => {
+const saveCategory = async (category) => {
     
     const res = await fetch(API_ENDPOINTS.category, {
         method: "POST",
         headers: GetReqHeader(),
-        body: JSON.stringify({ name, iconUrl, type })
+        body: JSON.stringify(category)
     });
 
     // Error handling for different status code for saving a category
