@@ -1,79 +1,184 @@
 import { XMarkIcon } from "@heroicons/react/24/outline"
 import { PencilSquareIcon, SquaresPlusIcon } from "@heroicons/react/24/solid"
 import { useEffect, useState } from "react";
-import { Input, RadioInput } from "./Input";
+import { EmojiPickerInput, Input, RadioInput } from "./Input";
+import ValidateCategory from "./Validating"
 
 const CategoryForm = ({ handleFormClose, updateCategory }) => {
 
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState({});
-  const [category, setCategory] = useState(updateCategory);
+  const [category, setCategory] = useState(updateCategory || null);
+  const [isEmojiOpen, setIsEmojiOpen] = useState(false);
+  const [emojiName, setEmojiName] = useState("")
+
+  useEffect(() => {
+    if (updateCategory) {
+      setCategory(updateCategory);
+    } else {
+      setCategory(null);
+    }
+  }, [updateCategory])
+
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
+    setCategory(prevCategory => ({
+      ...prevCategory,
+      [name]: value
+    }))
+  }
+
+  const handleEmojiChange = (name, value) => {
     setCategory(prevCategory => ({
       ...prevCategory,
       [name] : value
     }))
   }
 
+  const handleDelete = (key) => {
+    if (key in category) {
+      const { [key]: _, ...restOfCategory } = category;
+      setCategory(restOfCategory);
+      if (key === 'iconUrl')
+        setEmojiName("");
+    }
+  }
+
+  const handleSubmit = async (e) => {
+
+    e.preventDefault();
+    setIsLoading(true);
+
+    // Validate the category form and set error if exists
+    const newErrorMsg = ValidateCategory(category);
+    setErrorMsg(newErrorMsg);
+
+    // Stops the loading is error exists
+    if (Object.keys(newErrorMsg).length != 0) {
+      setIsLoading(false);
+    }
+    else {
+
+      // Try to update the category if updateCategory exists
+      if (updateCategory) {
+        try {
+          
+        } catch (error) {
+          
+        } finally {
+          setIsLoading(false);
+        }
+      }
+
+      // Try to create a new category if updateCategory doesn't exists
+      else {
+        try {
+          
+        } catch (error) {
+          
+        } finally {
+          setIsLoading(false);
+        }
+      }
+
+    }
+
+  }
+
   return (
     <main className="absolute top-0 left-0 flex items-center justify-center z-20 w-full h-full">
-        {/* Background of the form */}
-        <div
-            onClick={() => handleFormClose()} 
-            className="absolute w-full h-full left-0 top-0 z-20 overflow-hidden transition-all bg-black/20 backdrop-blur-xs"></div>
+      {/* Background of the form */}
+      <div
+        onClick={() => handleFormClose()}
+        className="absolute w-full h-full left-0 top-0 z-20 overflow-hidden transition-all bg-black/20 backdrop-blur-xs"></div>
 
-        {/* Category section */}
-        <section className="relative z-30 w-3/4 max-w-[9in] h-3/4 flex items-center justify-center px-10 py-15 bg-white/50 backdrop-blur-md rounded-2xl overflow-y-auto overflow-x-hidden thin-scrollbar-light shadow-2xl/30">
+      {/* Category section block */}
+      <section
+        className="relative z-30 max-w-[9in] sm:h-auto max-h-full flex flex-col items-center justify-center bg-white/50 backdrop-blur-md rounded-2xl overflow-y-auto overflow-x-hidden thin-scrollbar-light shadow-2xl/30 text-[#423e36]">
 
-          {/* Navbar of the form */}
-          <nav className="absolute top-0 w-full h-auto border-b-[1px] border-[#423e3641] rounded-t-2xl flex items-center justify-between bg-white/80">
-            <span className="text-xl font-semibold text-[#423e36] pl-8">
-              {
-                updateCategory ? 
-                <span className="flex items-center justify-center gap-3" > 
-                  <PencilSquareIcon className="w-7" /> 
-                  Update the category 
-                </span> : 
-                <span className="flex items-center justify-center gap-3" > 
-                  <SquaresPlusIcon className="w-7" /> 
-                  Create a new category 
+        {/* Navbar of the form */}
+        <nav className="sticky top-0 w-full h-auto border-b-[1px] border-[#423e3641] rounded-t-2xl flex items-center justify-between bg-white/80 z-10 backdrop-blur-xs">
+          <span className="md:text-xl sm:text-lg font-semibold pl-8">
+            {
+              updateCategory ?
+                <span className="flex items-center justify-center gap-3" >
+                  <PencilSquareIcon className="md:w-7 sm:w-6 w-5" />
+                  Update the category
+                </span> :
+                <span className="flex items-center justify-center gap-3" >
+                  <SquaresPlusIcon className="md:w-7 sm:w-6 w-5" />
+                  Create a new category
                 </span>
-              }
-            </span>
+            }
+          </span>
 
-            {/* Cross icon to close the form */}
-            <XMarkIcon 
-                onClick={() => handleFormClose()}
-                className="text-[#423e36ce] w-14 p-4 border-l-[1px] border-[#423e3641] hover:bg-black/10 active:bg-black/20 rounded-tr-2xl stroke-2 transition-all" />
-          </nav>
+          {/* Cross icon to close the form */}
+          <XMarkIcon
+            onClick={() => handleFormClose()}
+            className="text-[#423e36ce] w-14 p-4 border-l-[1px] border-[#423e3641] hover:bg-black/10 active:bg-black/20 rounded-tr-2xl stroke-2 transition-all" />
+        </nav>
 
-          {/* Category form */}
-          <form method="post" className="w-full">
+        {/* Category form */}
+        <form onSubmit={handleSubmit} method="post" 
+        className={`relative w-full h-full flex flex-col py-5 px-12 justify-center
+                    ${isEmojiOpen ? 'pt-50 sm:pt-30' : 'pt-5 sm:pt-5'} transition-all`}>
 
-            {/* Input field for Category name */}
-            <Input
-              idName = "name"
-              label = "Category Name"
-              type = "text"
-              handleOnChange = {e => handleOnChange(e)}
-              value = {category?.name || ""}
-              placeholder = "Give a name to the category"
-              errorMsg = {errorMsg}
-            />
+          {/* Emoji picker input using emoji-picker-react library */}
+          <EmojiPickerInput
+            heading={updateCategory ? "Change the icon" : "Pick an icon"}
+            iconUrl={category?.iconUrl || ""}
+            handleEmojiChange={handleEmojiChange}
+            isEmojiOpen={isEmojiOpen}
+            setIsEmojiOpen={setIsEmojiOpen}
+            handleDelete={handleDelete}
+            emojiName={emojiName}
+            setEmojiName={setEmojiName}
+          />
 
-            {/* Input field for Category types */}
-            <RadioInput
-              heading = "Select the type"
-              inputName = "categoryType"
-              categoryType = {category?.type || ""}
-              handleOnChange = {e => handleOnChange(e)}
-              errorMsg = {errorMsg}
-            />
+          {/* Input field for Category name */}
+          <Input
+            idName="name"
+            label={updateCategory ? "Change category name" : "Category name"}
+            type="text"
+            handleOnChange={e => handleOnChange(e)}
+            value={category?.name || ""}
+            placeholder="Give category a name"
+            errorMsg={errorMsg}
+          />
 
-          </form>
+          {/* Input field for Category types */}
+          <RadioInput
+            heading={updateCategory ? "Change the type" : "Select the type"}
+            inputName="type"
+            categoryType={category?.type || ""}
+            handleOnChange={e => handleOnChange(e)}
+            errorMsg={errorMsg}
+          />
 
-        </section>
+          {/* Submit button */}
+          <button type="submit"
+            disabled={isLoading}
+            className="py-3 px-9 rounded-lg shadow-xl/30 flex mx-auto
+                      bg-[#25933b] hover:bg-[#207f33] active:bg-[#1d722e]
+                      text-white hover:cursor-pointer 
+                      disabled:cursor-not-allowed disabled:bg-[#1d722e]"
+          >
+            {
+              isLoading ?
+                <p className="text-[#ffffffb0] flex gap-2 items-center">
+                  <ArrowPathIcon className="animate-spin w-[18px] h-[18px]" />
+                  {
+                    updateCategory ? "Updating..." : "Creating..."
+                  }
+                </p>
+                : ( updateCategory ? "Update" : "Create" )
+            }
+          </button>
+
+        </form>
+
+      </section>
     </main>
   )
 }

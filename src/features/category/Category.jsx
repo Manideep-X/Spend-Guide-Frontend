@@ -23,7 +23,7 @@ const Category = () => {
   const navigate = useNavigate();
 
   // this will set the updateCategory state with the one that user trying to update
-  const handleFormShow = ({ category }) => {
+  const handleFormShow = (category) => {
     setUpdateCategory(category);
     setShowCategoryForm(true);
   }
@@ -83,12 +83,12 @@ const Category = () => {
                         text-[#ffffff] hover:cursor-pointer"
         >
           <PlusIcon className="w-5 h-5 stroke-2" />
-          <span className="font-medium ">Create a category</span>
+          <span title="Create a category" className="font-medium sm:block hidden">Create a category</span>
         </button>
       </section>
 
       {/* Main category display section */}
-      <section className="w-full h-[85%] py-5 px-8 rounded-xl text-[#423e36] bg-white/50 overflow-y-auto overflow-x-hidden thin-scrollbar">
+      <section className="w-full md:h-[87%] h-11/12 py-5 px-8 rounded-xl text-[#423e36] bg-white/50 overflow-y-auto overflow-x-hidden thin-scrollbar">
 
         {/* Need to check any categories are available or not */
         categories.length === 0 ?
@@ -125,8 +125,8 @@ const Category = () => {
                   onMouseLeave={() => setHoveringRow(null)}
                   className={`h-auto w-80 grid grid-cols-[auto_1fr] gap-2 items-center px-6 py-8 rounded-xl transition-all
                   ${hoveringRow === (category.id || index) 
-                    ? 'md:shadow-[inset_2px_80px_30px_rgba(255,255,255,0.7)] shadow-[inset_2px_50px_60px_rgba(255,255,255,0.8)]' 
-                    : 'md:shadow-[inset_2px_60px_65px_rgba(255,255,255,0.7)] shadow-[inset_2px_50px_60px_rgba(255,255,255,0.8)]'}
+                    ? 'shadow-[inset_2px_80px_30px_rgba(255,255,255,0.7)]' 
+                    : 'shadow-[inset_2px_60px_65px_rgba(255,255,255,0.7)]'}
                   `}>
                       {hoveringRow === (category.id || index)
                         ? 
@@ -135,7 +135,7 @@ const Category = () => {
                           ? <img 
                               src={category.iconUrl} 
                               alt={category.name}
-                              className="w-12 p-3 bg-white/50 rounded-xl" />
+                              className="w-12 p-3 bg-white/80 rounded-xl" />
                           : <ClipboardDocumentIconSolid className="w-12 p-3 bg-white/50 rounded-xl" />
                           }
                           <div className="flex items-center justify-between ">
@@ -180,10 +180,8 @@ const Category = () => {
 
       {/* Category Form for adding new category */}
       {
-        showCategoryForm ?
+        showCategoryForm &&
           <CategoryForm handleFormClose={handleFormClose} updateCategory={updateCategory} />
-        :
-          ''
       }
 
     </section>
