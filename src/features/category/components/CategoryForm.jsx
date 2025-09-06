@@ -1,22 +1,27 @@
-import { XMarkIcon } from "@heroicons/react/24/outline"
+import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline"
 import { PencilSquareIcon, SquaresPlusIcon } from "@heroicons/react/24/solid"
 import { useEffect, useState } from "react";
 import { EmojiPickerInput, Input, RadioInput } from "./Input";
 import ValidateCategory from "./Validating"
+import { saveCategory, updateCategoryById } from "../../../services/CategoryService";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const CategoryForm = ({ handleFormClose, updateCategory }) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState({});
-  const [category, setCategory] = useState(updateCategory || null);
+  const [category, setCategory] = useState(updateCategory || {});
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
-  const [emojiName, setEmojiName] = useState("")
+  const [emojiName, setEmojiName] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (updateCategory) {
       setCategory(updateCategory);
     } else {
-      setCategory(null);
+      setCategory({});
     }
   }, [updateCategory])
 
@@ -64,7 +69,18 @@ const CategoryForm = ({ handleFormClose, updateCategory }) => {
       if (updateCategory) {
         try {
           
+          const response = await updateCategoryById(category);
+
+          toast.success("The category is updated successfully!")
+          navigate("/category");
+          handleFormClose();
+          
         } catch (error) {
+
+          console.log(error);
+          if (error.message) toast.error(error.message);
+          if (error.redirect) navigate(error.redirect);
+          else navigate("/category")
           
         } finally {
           setIsLoading(false);
@@ -74,8 +90,19 @@ const CategoryForm = ({ handleFormClose, updateCategory }) => {
       // Try to create a new category if updateCategory doesn't exists
       else {
         try {
+
+          const response = await saveCategory(category);
+          
+          toast.success("New category is created successfully!")
+          navigate("/category");
+          handleFormClose();
           
         } catch (error) {
+          
+          console.log(error);
+          if (error.message) toast.error(error.message);
+          if (error.redirect) navigate(error.redirect);
+          else navigate("/category")
           
         } finally {
           setIsLoading(false);
@@ -90,7 +117,7 @@ const CategoryForm = ({ handleFormClose, updateCategory }) => {
     <main className="absolute top-0 left-0 flex items-center justify-center z-20 w-full h-full">
       {/* Background of the form */}
       <div
-        onClick={() => handleFormClose()}
+        onClick={(e) => handleFormClose(e)}
         className="absolute w-full h-full left-0 top-0 z-20 overflow-hidden transition-all bg-black/20 backdrop-blur-xs"></div>
 
       {/* Category section block */}
@@ -101,7 +128,7 @@ const CategoryForm = ({ handleFormClose, updateCategory }) => {
         <nav className="sticky top-0 w-full h-auto border-b-[1px] border-[#423e3641] rounded-t-2xl flex items-center justify-between bg-white/80 z-10 backdrop-blur-xs">
           <span className="md:text-xl sm:text-lg font-semibold pl-8">
             {
-              updateCategory ?
+              (updateCategory) ?
                 <span className="flex items-center justify-center gap-3" >
                   <PencilSquareIcon className="md:w-7 sm:w-6 w-5" />
                   Update the category
@@ -120,13 +147,13 @@ const CategoryForm = ({ handleFormClose, updateCategory }) => {
         </nav>
 
         {/* Category form */}
-        <form onSubmit={handleSubmit} method="post" 
+        <form onSubmit={(e) => handleSubmit(e)} method="post" 
         className={`relative w-full h-full flex flex-col py-5 px-12 justify-center
                     ${isEmojiOpen ? 'pt-50 sm:pt-30' : 'pt-5 sm:pt-5'} transition-all`}>
 
           {/* Emoji picker input using emoji-picker-react library */}
           <EmojiPickerInput
-            heading={updateCategory ? "Change the icon" : "Pick an icon"}
+            heading={(updateCategory) ? "Change the icon" : "Pick an icon"}
             iconUrl={category?.iconUrl || ""}
             handleEmojiChange={handleEmojiChange}
             isEmojiOpen={isEmojiOpen}
@@ -139,7 +166,7 @@ const CategoryForm = ({ handleFormClose, updateCategory }) => {
           {/* Input field for Category name */}
           <Input
             idName="name"
-            label={updateCategory ? "Change category name" : "Category name"}
+            label={(updateCategory) ? "Change category name" : "Category name"}
             type="text"
             handleOnChange={e => handleOnChange(e)}
             value={category?.name || ""}
@@ -149,7 +176,7 @@ const CategoryForm = ({ handleFormClose, updateCategory }) => {
 
           {/* Input field for Category types */}
           <RadioInput
-            heading={updateCategory ? "Change the type" : "Select the type"}
+            heading={(updateCategory) ? "Change the type" : "Select the type"}
             inputName="type"
             categoryType={category?.type || ""}
             handleOnChange={e => handleOnChange(e)}
@@ -169,10 +196,10 @@ const CategoryForm = ({ handleFormClose, updateCategory }) => {
                 <p className="text-[#ffffffb0] flex gap-2 items-center">
                   <ArrowPathIcon className="animate-spin w-[18px] h-[18px]" />
                   {
-                    updateCategory ? "Updating..." : "Creating..."
+                    (updateCategory) ? "Updating..." : "Creating..."
                   }
                 </p>
-                : ( updateCategory ? "Update" : "Create" )
+                : ( (updateCategory) ? "Update" : "Create" )
             }
           </button>
 
