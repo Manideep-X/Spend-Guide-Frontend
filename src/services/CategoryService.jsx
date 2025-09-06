@@ -52,9 +52,11 @@ const getCategoriesByType = async ({ type }) => {
 }
 
 // Updates a category by it's ID
-const updateCategory = async ({ id, name, iconUrl, type }) => {
+const updateCategoryById = async (category) => {
     
-    const res = await fetch(`${API_ENDPOINTS.category}/${id}`, {
+    const { id, name, iconUrl, type } = category;
+
+    const res = await fetch(`${API_ENDPOINTS.category}/${id || ""}`, {
         method: "PUT",
         headers: GetReqHeader(),
         body: JSON.stringify({ name, iconUrl, type })
@@ -68,4 +70,4 @@ const updateCategory = async ({ id, name, iconUrl, type }) => {
 
 }
 
-export { saveCategory, getCategories, getCategoriesByType, updateCategory }
+export { saveCategory, getCategories, getCategoriesByType, updateCategoryById }
