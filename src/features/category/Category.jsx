@@ -1,7 +1,5 @@
-import { ClipboardDocumentIcon, DocumentIcon, FolderOpenIcon, PencilSquareIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { ClipboardDocumentIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { PencilSquareIcon as PencilSquareIconSolid,
-        TrashIcon as TrashIconSolid, 
-        DocumentIcon as DocumentIconSolid,
         ClipboardDocumentIcon as ClipboardDocumentIconSolid,
         QueueListIcon,
         InboxStackIcon, 
@@ -27,34 +25,38 @@ const Category = () => {
     setUpdateCategory(category);
     setShowCategoryForm(true);
   }
+  
+  // Function to fetch categories from the DB
+  const fetchCategories = async () => {
+    try {
+      const response = await getCategories();
+      console.log(response);
+      if (response) {
+        setCategories(response);
+      }
+    } catch (error) {
+      if (error.message) toast.error(error.message);
+      if (error.redirect) navigate(error.redirect);
+    }
+    finally {
+      setIsLoading(false);
+      setShowCategoryForm(false);
+    }
+  }
 
   // this will close the form and clear the updateCategory state
   const handleFormClose = () => {
     setUpdateCategory(null);
     setShowCategoryForm(false);
+    fetchCategories();
   }
 
+  // Fetch the categories from the DB after each render/re-render
   useEffect(() => {
-    const getCate = async () => {
-      try {
-        const response = await getCategories();
-        console.log(response);
-        if (response) {
-          setCategories(response);
-        }
-      } catch (error) {
-        setIsLoading(false);
-        if (error.message) toast.error(error.message);
-        if (error.redirect) navigate(error.redirect);
-      }
-      finally {
-        setIsLoading(false);
-        setShowCategoryForm(false);
-      }
-    }
-    getCate();
+    fetchCategories();
   }, [])
   
+  // Ruturns the loading page during category fetching time
   if (isLoading) return (
     <Loading />
   )

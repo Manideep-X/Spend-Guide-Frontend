@@ -78,6 +78,7 @@ const RadioInput = ({ heading, inputName, categoryType, handleOnChange, errorMsg
                                         <div className="leading-3">
                                             <p className="text-sm font-semibold text-[#959392]">Type</p>
                                             <p className="text-[17px] font-bold">{cateTypeAndLabel.label}</p>
+                                            <p className="text-xs font-light">selected</p>
                                         </div>
                                     </> :
                                     <>
@@ -139,6 +140,7 @@ const EmojiPickerInput = (
                         { isEmojiOpen &&
                             <EmojiPicker
                                 height={400}
+                                width={422}
                                 onEmojiClick={(emoji) => {
                                         handleEmojiChange("iconUrl", emoji?.imageUrl || "");
                                         setEmojiName(emoji?.names[0] || "")
