@@ -39,6 +39,12 @@ export const NAV_LINK_DETAILS = [
 ];
 
 export const CATEGORY_TYPE_AND_LABEL = [
-    { type: "expense", label: "Expense", iconNotSelected: WalletIcon, iconSelected: WalletIconSolid },
-    { type: "income", label: "Income", iconNotSelected: CreditCardIcon, iconSelected: CreditCardIconSolid }
+    { type: "expense", label: "Expense", 
+        iconNotSelected: CreditCardIcon, 
+        iconSelected: CreditCardIconSolid 
+    },
+    { type: "income", label: "Income", 
+        iconNotSelected: WalletIcon, 
+        iconSelected: WalletIconSolid 
+    }
 ];
