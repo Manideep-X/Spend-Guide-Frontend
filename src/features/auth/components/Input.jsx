@@ -59,14 +59,14 @@ const NameInput = ({onChangeFirst, onChangeLast, valueFirst, valueLast, errorMsg
     return (
         <div className="flex flex-col">
             <label className="pl-2 font-medium text-[15px]">Full Name</label>
-            <div className="flex gap-2">
+            <div className="flex md:gap-2 w-full">
                 <div>
                     <input
 
                         // Change input field styling if error exists
                         className={
                             !errorMsg.firstName ? 
-                            "px-5 py-2 border-2 border-gray-200 outline-[#207f33] rounded-lg bg-gray-50"
+                            "px-5 py-2 w-full border-2 border-gray-200 outline-[#207f33] rounded-lg bg-gray-50"
                             : errorClass
                         }
 
@@ -90,7 +90,7 @@ const NameInput = ({onChangeFirst, onChangeLast, valueFirst, valueLast, errorMsg
                         // Change input field styling if error exists
                         className={
                             !errorMsg.lastName ? 
-                            "px-5 py-2 border-2 border-gray-200 outline-[#207f33] rounded-lg bg-gray-50"
+                            "px-5 py-2 w-full border-2 border-gray-200 outline-[#207f33] rounded-lg bg-gray-50"
                             : errorClass
                         }
 
