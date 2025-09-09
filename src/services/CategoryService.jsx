@@ -36,7 +36,7 @@ const getCategories = async () => {
 }
 
 // Gets a list of categories of a perticular type
-const getCategoriesByType = async ({ type }) => {
+const getCategoriesByType = async (type) => {
     
     const res = await fetch(`${API_ENDPOINTS.category}/${type}`, {
         method: "GET",

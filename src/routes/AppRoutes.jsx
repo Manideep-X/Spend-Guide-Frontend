@@ -52,7 +52,7 @@ const AppRoutes = () => {
 
           {/* Dashboard routes */}
           <Route path='/dashboard' element={
-            localStorage.getItem("token") && user ? <Dashboard /> : <Navigate to='/signin' replace />
+            user ? <Dashboard /> : <Navigate to='/signin' replace />
           } />
         
         </Route>
