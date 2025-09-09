@@ -1,8 +1,7 @@
 import { ClipboardDocumentIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { PencilSquareIcon as PencilSquareIconSolid,
         ClipboardDocumentIcon as ClipboardDocumentIconSolid,
-        QueueListIcon,
-        InboxStackIcon, 
+        QueueListIcon, 
         } from "@heroicons/react/24/solid"
 import { useEffect, useState } from "react";
 import { getCategories } from "../../services/CategoryService";
@@ -10,6 +9,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../layout/Loading"
 import CategoryForm from "./components/CategoryForm";
+import EmptyListFiller from "./components/EmptyListFiller";
 
 const Category = () => {
   
@@ -94,23 +94,11 @@ const Category = () => {
 
         {/* Need to check any categories are available or not */
         categories.length === 0 ?
-        <section className="flex h-full w-full items-center justify-center gap-5">
-          <div className="h-2/3 w-2/3 flex flex-col items-center justify-center rounded-2xl 
-            md:shadow-[inset_2px_150px_150px_rgba(255,255,255,0.5)] shadow-[inset_2px_90px_100px_rgba(255,255,255,0.6)]">
-            <div className="relative w-30 p-8 bg-white/80 rounded-full">
-              <InboxStackIcon className="opacity-50" />
-              <PlusIcon 
-                onClick={() => {setShowCategoryForm(true)
-                }}
-                className="absolute -right-2 bottom-0 w-10 p-2 rounded-full shadow-lg/30 flex mx-auto
-                  bg-[#25933b] hover:bg-[#207f33] active:bg-[#1d722e]
-                  text-white hover:cursor-pointer 
-                  disabled:cursor-not-allowed disabled:bg-[#1d722e]" />
-            </div>
-            <span className="text-lg font-semibold mt-3">Create a new category to get started</span>
-            <p className="text-sm">Organise your spendings and income in one place</p>
-          </div>
-        </section>
+        <EmptyListFiller 
+          setShowForm={setShowCategoryForm}
+          message1="Create a new category to get started"
+          message2="Organise your spendings and income in one place"
+        />
 
         :
 

@@ -1,7 +1,6 @@
 import { errorClassFullW, ErrorText } from "./ErrorStyling";
 import { CATEGORY_TYPE_AND_LABEL } from "../../../utils/GetAssets";
 import { DocumentPlusIcon, TrashIcon } from "@heroicons/react/24/solid";
-import { useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 
 const Input = ({ idName, label, type, handleOnChange, value, placeholder, errorMsg }) => {
@@ -158,4 +157,49 @@ const EmojiPickerInput = (
     
 }
 
-export { Input, RadioInput, EmojiPickerInput }
+const DropDownInput = ({ type, categories, label, selectName, handleOnChange, placeholder, errorMsg }) => {
+    return (
+        <section className="flex flex-col py-2">
+            <p className="pl-2 font-medium text-[15px]">{label}</p>
+            <div className="flex relative">
+                <select 
+
+                    // Change select field styling if error exists
+                    className={
+                        !errorMsg[selectName] ?
+                            "px-5 py-2 w-full border-2 border-gray-200 outline-[#207f33] rounded-lg bg-gray-50"
+                            : errorClassFullW
+                    }
+
+                    name={selectName} 
+                    id={`${type}Category`}
+                    defaultValue=""
+                    onChange={(e) => handleOnChange(e)}
+                >
+                    <option value="" disabled hidden className="text-[#9d9c98]" >{placeholder}</option>
+                    {
+                        // this will display category list if it exists
+                        Array.isArray(categories) && categories.length !== 0 &&
+                        categories.map((category, index) => (
+                            <option 
+                                key={category?.id || index} 
+                                value={category.id}
+                                className="p-10"
+                            >
+                                {category.name}
+                            </option>
+                        ))
+                    }
+                </select>
+            </div>
+
+            {/* Displaying error message if exists */}
+            {
+                errorMsg[selectName] && <ErrorText message={errorMsg[selectName]} />
+            }
+
+        </section>
+    );
+}
+
+export { Input, RadioInput, EmojiPickerInput, DropDownInput }
