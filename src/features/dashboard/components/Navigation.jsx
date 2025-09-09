@@ -11,7 +11,7 @@ const Navigation = () => {
 
     return (
         <nav className={`flex flex-col items-center gap-3 md:p-5 p-4 justify-between overflow-hidden
-                        ${expandSideBar ? 'h-[90%]' : 'h-19'} transition-all 
+                        ${expandSideBar ? 'h-[70%]' : 'h-19'} transition-all 
                         md:max-w-8xl w-full md:h-full md:rounded-r-2xl md:rounded-bl-[0px] rounded-b-2xl absolute md:relative top-0 z-20 backdrop-blur-md
                         `}>
 

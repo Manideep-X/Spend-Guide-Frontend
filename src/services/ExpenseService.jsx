@@ -2,12 +2,12 @@ import { API_ENDPOINTS } from "../utils/EndpointsConfig"
 import { GetReqHeader } from "../utils/GetReqHeader"
 import InExErrorHandling from "../utils/InExErrorHandling"
 
-const saveNewExpense = async ({ name, iconUrl, date, amount }) => {
+const saveNewExpense = async (expense) => {
     
     const res = await fetch(API_ENDPOINTS.expense, {
         method: "POST",
         headers: GetReqHeader(),
-        body: JSON.stringify({ name, iconUrl, date, amount })
+        body: JSON.stringify(expense)
     });
 
     // Error handling for different status code
