@@ -1,4 +1,4 @@
-import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline"
+import { ArrowPathIcon, ExclamationTriangleIcon, XMarkIcon } from "@heroicons/react/24/outline"
 import { PencilSquareIcon, SquaresPlusIcon } from "@heroicons/react/24/solid"
 import { useEffect, useState } from "react";
 import { EmojiPickerInput, Input, RadioInput } from "./Input";
@@ -17,6 +17,7 @@ const CategoryForm = ({ handleFormClose, updateCategory }) => {
 
   const navigate = useNavigate();
 
+  // If user is updating a category, this will set the category with the existing category
   useEffect(() => {
     if (updateCategory) {
       setCategory(updateCategory);
@@ -25,7 +26,7 @@ const CategoryForm = ({ handleFormClose, updateCategory }) => {
     }
   }, [updateCategory])
 
-
+  // Handle changes in the input form fields
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setCategory(prevCategory => ({
@@ -34,6 +35,7 @@ const CategoryForm = ({ handleFormClose, updateCategory }) => {
     }))
   }
 
+  // Same as handleOnChange but made explicitly for emoji change
   const handleEmojiChange = (name, value) => {
     setCategory(prevCategory => ({
       ...prevCategory,
@@ -41,6 +43,7 @@ const CategoryForm = ({ handleFormClose, updateCategory }) => {
     }))
   }
 
+  // This function is for emoji delete only, So that user can keep the icon empty 
   const handleDelete = (key) => {
     if (key in category) {
       const { [key]: _, ...restOfCategory } = category;
@@ -50,6 +53,7 @@ const CategoryForm = ({ handleFormClose, updateCategory }) => {
     }
   }
 
+  // Handles onSubmit of the form
   const handleSubmit = async (e) => {
 
     e.preventDefault();
@@ -80,7 +84,6 @@ const CategoryForm = ({ handleFormClose, updateCategory }) => {
           console.log(error);
           if (error.message) toast.error(error.message);
           if (error.redirect) navigate(error.redirect);
-          else navigate("/category")
           
         } finally {
           setIsLoading(false);
@@ -202,6 +205,14 @@ const CategoryForm = ({ handleFormClose, updateCategory }) => {
                 : ( (updateCategory) ? "Update" : "Create" )
             }
           </button>
+
+          {
+            !updateCategory && 
+            <p className="text-center flex justify-center rounded-xl mt-4 text-sm text-red-700/60 font-bold">
+              <ExclamationTriangleIcon className=" inline w-5 " />
+              Created categories can be updated but cannot be deleted as of now.
+            </p>
+          }
 
         </form>
 
