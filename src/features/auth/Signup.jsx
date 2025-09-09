@@ -92,7 +92,7 @@ const Signup = () => {
         className="absolute h-full w-full -z-10 object-cover"
       />
 
-      <section className="mx-auto mt-8 max-w-fit max-h-5/6 px-28 py-7 bg-[#ffffffe8] overflow-y-scroll overflow-x-hidden thin-scrollbar shadow-2xl/50 rounded-3xl">
+      <section className="mx-auto mt-8 max-w-fit max-h-5/6 md:px-28 sm:px-15 px-8 py-7 bg-[#ffffffe8] overflow-y-scroll overflow-x-hidden thin-scrollbar shadow-2xl/50 rounded-3xl">
 
         <figure className="flex flex-col items-center justify-around w-fit mx-auto">
           <img src={ASSETS.iconNoBg} alt="Spend Guide" className="w-[60px] mx-auto" />
