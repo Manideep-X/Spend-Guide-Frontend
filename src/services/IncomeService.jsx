@@ -33,10 +33,10 @@ const getIncomesForCurrMonth = async () => {
 
 }
 
-const deleteAnIncomeById = async ({ id }) => {
+const deleteAnIncomeById = async (id) => {
 
     const res = await fetch(`${API_ENDPOINTS.income}/${id}`, {
-        method: "GET",
+        method: "DELETE",
         headers: GetReqHeader()
     });
 
@@ -44,7 +44,7 @@ const deleteAnIncomeById = async ({ id }) => {
     const resOK = await InExErrorHandling({ res, expenseOrIncome: "income", isItFilter: false });
 
     // This will return the json body of the response
-    return await resOK.json();
+    // return await resOK.json();
 
 }
 
