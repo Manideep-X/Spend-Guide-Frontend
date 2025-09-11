@@ -2,7 +2,7 @@ const InExErrorHandling = async ({ res, expenseOrIncome, isItFilter }) => {
     
     if (!res.ok) {
 
-        const resData = {};
+        let resData = {};
         try {
             resData = await res.json();
         } catch (error) {
