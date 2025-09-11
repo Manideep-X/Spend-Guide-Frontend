@@ -154,7 +154,7 @@ const ExpenseIncomeForm = ({ handleFormClose, type, categories }) => {
               label={`${firstCapitalType} amount`}
               type="number"
               handleOnChange={e => handleOnChange(e)}
-              value={transaction?.amount || 0}
+              value={transaction?.amount || ""}
               errorMsg={errorMsg}
             />
             
@@ -164,7 +164,7 @@ const ExpenseIncomeForm = ({ handleFormClose, type, categories }) => {
               label={`Date of ${firstCapitalType} reciept`}
               type="date"
               handleOnChange={e => handleOnChange(e)}
-              value={transaction?.date}
+              value={transaction?.date || ""}
               errorMsg={errorMsg}
             />
 
