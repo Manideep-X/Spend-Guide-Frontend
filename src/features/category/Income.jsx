@@ -10,6 +10,7 @@ import { ArrowDownOnSquareStackIcon as ArrowDownOnSquareStackIconSolid, WalletIc
 import { ArrowDownOnSquareStackIcon, ArrowPathIcon, PlusIcon } from "@heroicons/react/24/outline";
 import ExpenseIncomeForm from "./components/ExpenseIncomeForm";
 import { getCategoriesByType } from "../../services/CategoryService";
+import SimpleAreaChart from "../../layout/SimpleAreaChart";
 
 const Income = () => {
 
@@ -83,7 +84,7 @@ const Income = () => {
 
   return (
     
-    <section className="md:px-5 md:py-0 w-full h-screen overflow-hidden thin-scrollbar pt-20 md:pt-3">
+    <section className="md:px-5 md:py-0 w-full h-screen overflow-x-hidden overflow-y-auto thin-scrollbar pt-20 md:pt-3">
       
       {/* Title with heading, icon and button */}
       <section className="flex w-full justify-between px-6 md:py-5 py-3">
@@ -113,7 +114,23 @@ const Income = () => {
 
       </section>
 
-      {/* Main category display section */}
+      {/* Area chart display section (will only show if income exists) */}
+      {
+        incomes.length !== 0 &&
+        <section className="flex flex-col items-center justify-center w-full h-[4.5in] mb-5 rounded-xl text-[#423e36] bg-white/50 py-4 px-6">
+          <div className="flex flex-col w-full mb-3">
+            <p className="text-left sm:text-lg font-bold">Overview of this month's Incomes</p>
+          </div>
+          <div className="h-full w-full p-2 pt-8 pr-8 rounded-xl flex items-center justify-center shadow-[inset_2px_210px_200px_rgba(255,255,255,0.8)]">
+            <SimpleAreaChart
+              transactions={incomes}
+              type="income"
+            />
+          </div>
+        </section>
+      }
+
+      {/* Main income display section */}
       <section className="w-full md:h-[87%] h-11/12 rounded-xl text-[#423e36] bg-white/50 overflow-y-auto overflow-x-hidden thin-scrollbar">
         
         {/* Need to check if any incomes are available or not */}
@@ -135,9 +152,10 @@ const Income = () => {
             type="income"
             hoveringRow={hoveringRow}
             setHoveringRow={setHoveringRow}
+            fetchTransactionsForCurrMonth={fetchIncomesForCurrMonth}
             heading="Your this month's Income"
-            defaultIconHover={ArrowDownOnSquareStackIconSolid}
-            defaultIconNotHover={ArrowDownOnSquareStackIcon}
+            DefaultIconHover={ArrowDownOnSquareStackIconSolid}
+            DefaultIconNotHover={ArrowDownOnSquareStackIcon}
           />
         }
 

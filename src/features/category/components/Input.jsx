@@ -1,10 +1,11 @@
-import { errorClassFullW, ErrorText } from "./ErrorStyling";
+import { errorClass, errorClassFullW, ErrorText } from "./ErrorStyling";
 import { CATEGORY_TYPE_AND_LABEL } from "../../../utils/GetAssets";
 import { DocumentPlusIcon, TrashIcon } from "@heroicons/react/24/solid";
 import EmojiPicker from "emoji-picker-react";
 
 const Input = ({ idName, label, type, handleOnChange, value, placeholder, errorMsg }) => {
 
+    if (idName !== "date")
     return (
         <div className="flex flex-col py-2">
             <label className="pl-2 font-medium text-[15px]">{label}</label>
@@ -15,11 +16,47 @@ const Input = ({ idName, label, type, handleOnChange, value, placeholder, errorM
                     className={
                         !errorMsg[idName] ?
                             "px-5 py-2 w-full border-2 border-gray-200 outline-[#207f33] rounded-lg bg-gray-50"
-                            : errorClassFullW
+                            : 
+                            (
+                                (idName === "amount") ?
+                                    errorClass : errorClassFullW
+                            )
                     }
 
                     id={idName}
                     name={idName}
+                    type={type}
+                    onChange={e => handleOnChange(e)}
+                    value={value}
+                    placeholder={placeholder}
+                />
+            </div>
+
+            {/* Displaying error message if exists */}
+            {
+                errorMsg[idName] && <ErrorText message={errorMsg[idName]} />
+            }
+
+        </div>
+    )
+
+    // For date input field
+    return (
+        <div className="flex flex-col py-2">
+            <label className="pl-2 font-medium text-[15px]">{label}</label>
+            <div className="flex relative">
+                <input
+
+                    // Change date input field styling if error exists
+                    className={
+                        !errorMsg[idName] ?
+                            "px-5 py-2 w-full border-2 border-gray-200 outline-[#207f33] rounded-lg bg-gray-50"
+                            : errorClass
+                    }
+
+                    id={idName}
+                    name={idName}
+                    max={new Date().toISOString().split('T')[0]}
                     type={type}
                     onChange={e => handleOnChange(e)}
                     value={value}
