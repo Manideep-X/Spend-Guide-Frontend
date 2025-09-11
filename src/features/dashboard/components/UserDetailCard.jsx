@@ -20,7 +20,7 @@ const UserDetailCard = () => {
 
 
   return (
-    <aside className="flex flex-col items-center justify-center md:w-full pb-2 md:p-3 bg-[#ffffff5e] rounded-xl">
+    <aside className="flex flex-col items-center justify-center md:w-full pb-2 md:p-3 bg-[#ffffff9f] rounded-xl">
 
         <div className="flex md:block items-center gap-3 pb-1">
             {/* Profile Image */}
