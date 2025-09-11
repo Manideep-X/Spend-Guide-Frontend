@@ -15,6 +15,9 @@ export const ASSETS = {
     backgroundLight: "../src/assets/bg_img_light_ex.png"
 }
 
+// Set the currency as Dollar
+export const CURRENCY = "$";
+
 export const NAV_LINK_DETAILS = [
     { navOption: "Dashboard", navLink: "/dashboard",
         notSelected: RectangleStackIcon, 
