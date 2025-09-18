@@ -10,6 +10,7 @@ import { useContext } from 'react'
 import { AppContext } from '../context/AppContextProvidor'
 import Loading from '../layout/Loading'
 import Dashboard from '../features/dashboard/Dashboard'
+import LandingPage from '../layout/LandingPage'
 
 const AppRoutes = () => {
   const { user, loader } = useContext(AppContext);
@@ -18,6 +19,9 @@ const AppRoutes = () => {
 
   return (
     <Routes>
+
+      {/* Landing page route */}
+      <Route path='' element={ <LandingPage /> } />
 
       {/* Auth routes */}
       <Route path='/signin' element={
@@ -28,7 +32,6 @@ const AppRoutes = () => {
       } />
 
       {/* Need to check if the token exists before accessing these routes */}
-
       {/* These routes can be accessed inside home component */}
         <Route element={
           localStorage.getItem("token") && user ? <Home /> : <Navigate to='/signin' replace />

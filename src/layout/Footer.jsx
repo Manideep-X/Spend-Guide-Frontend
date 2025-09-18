@@ -2,7 +2,7 @@ import { LINKS } from "../utils/UrlLinks"
 
 const Footer = () => {
   return (
-    <footer className="flex md:flex-row flex-col absolute bottom-0 md:justify-between justify-center w-full sm:px-20 px-12 py-4 bg-[#e1e1e0e2] text-[#0000008F] sm:text-[13px] text-[10px] font-bold">
+    <footer id="links" className="flex md:flex-row flex-col absolute bottom-0 md:justify-between justify-center w-full sm:px-20 px-12 py-4 bg-[#e1e1e0e2] text-[#0000008F] sm:text-[13px] text-[10px] font-bold">
         <div className="flex justify-between p-2 items-center">
             <a className="px-4" href={ LINKS.repoFrontend }>Frontend Repo</a>
             <a className="px-4 border-l-[1px]" href={ LINKS.repoBackend }>Backend Repo</a>
