@@ -28,4 +28,20 @@ const GetReqHeaderAuth = () => {
 
 }
 
-export { GetReqHeaderAuth, GetReqHeader }
+const GetExcelReqHeader = () => {
+
+    // Get token from the localStorage
+    const token = localStorage.getItem("token") || "";
+
+    // Set the header data
+    const headerData = {
+        "Accept": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "Authorization": `Bearer ${token}`
+    };
+
+    // Return the header
+    return headerData;
+
+}
+
+export { GetReqHeaderAuth, GetReqHeader, GetExcelReqHeader }

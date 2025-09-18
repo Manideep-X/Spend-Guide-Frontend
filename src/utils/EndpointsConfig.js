@@ -1,5 +1,8 @@
 export const API_BASE_URL = "https://spend-guide.onrender.com/api/v1";
 
+// For local
+// export const API_BASE_URL = "http://localhost:8082/api/v1";
+
 const CLOUDNAME_CLOUDINARY = "dzujr0hdo";
 export const UPLOAD_PRESET_CLOUDINARY = "SpendGuide";
 
@@ -12,6 +15,10 @@ export const API_ENDPOINTS = {
     category: `${API_BASE_URL}/category`,
     dashboard: `${API_BASE_URL}/dashboard`,
     filter: `${API_BASE_URL}/filter`,
+    downloadIncomeDetails: `${API_BASE_URL}/excel/download-income`,
+    downloadExpenseDetails: `${API_BASE_URL}/excel/download-expense`,
+    emailIncomeDetails: `${API_BASE_URL}/excel/email-income`,
+    emailExpenseDetails: `${API_BASE_URL}/excel/email-expense`,
     uploadImg: `https://api.cloudinary.com/v1_1/${CLOUDNAME_CLOUDINARY}/image/upload`
 };
 
