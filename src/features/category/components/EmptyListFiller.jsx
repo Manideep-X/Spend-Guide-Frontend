@@ -6,8 +6,7 @@ const EmptyListFiller = ({ setShowForm, isLoading, message1, message2 }) => {
     return (
 
         <section className="flex h-full w-full items-center justify-center gap-5">
-            <div className="h-2/3 w-2/3 flex flex-col items-center justify-center rounded-2xl 
-              md:shadow-[inset_2px_150px_150px_rgba(255,255,255,0.5)] shadow-[inset_2px_90px_100px_rgba(255,255,255,0.6)]">
+            <div className="sm:h-2/3 sm:w-2/3 h-1/2 w-11/12 flex flex-col items-center justify-center rounded-2xl md:shadow-[inset_2px_150px_150px_rgba(255,255,255,0.5)] shadow-[inset_2px_90px_100px_rgba(255,255,255,0.6)] text-center">
                 <div className="relative w-30 p-8 bg-white/80 rounded-full">
                     <InboxStackIcon className="opacity-50" />
                     {
@@ -24,7 +23,7 @@ const EmptyListFiller = ({ setShowForm, isLoading, message1, message2 }) => {
                         />
                     }
                 </div>
-                <span className="text-lg font-semibold mt-3">{message1}</span>
+                <span className="sm:text-lg font-semibold mt-3">{message1}</span>
                 <p className="text-sm">{message2}</p>
             </div>
         </section>
