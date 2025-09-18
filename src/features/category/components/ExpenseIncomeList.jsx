@@ -1,6 +1,7 @@
 import { EnvelopeIcon, FolderArrowDownIcon, TrashIcon, ExclamationTriangleIcon } from "@heroicons/react/24/solid"
 import { deleteAnIncomeById } from "../../../services/IncomeService"
 import { deleteAnExpenseById } from "../../../services/ExpenseService";
+import { downloadExpenses, downloadIncomes, emailExpenses, emailIncomes } from "../../../services/ExcelService";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { format } from "date-fns";
@@ -14,6 +15,8 @@ const ExpenseIncomeList = ({
 }) => {
 
     const [isLoading, setIsLoading] = useState(null);
+    const [isDownloading, setIsDownloading] = useState(false);
+    const [isEmailSending, setIsEmailSending] = useState(false);
     const formatter = Intl.NumberFormat('en-US');
     const navigate = useNavigate();
 
@@ -43,27 +46,85 @@ const ExpenseIncomeList = ({
     }
 
     // Function to download income/expense details for this month
-    const downloadDetails = () => {
+    const downloadDetails = async () => {
+        setIsDownloading(true);
+        let responseBlob = null;
+
         if (type === "income") {
-            
+            try {
+                responseBlob = await downloadIncomes();
+            } catch (error) {
+                console.error(error);
+                if (error.message) toast.error(error.message);
+                if (error.redirect) navigate(error.redirect);
+            }
         } 
         else if (type === "expense") {
+            try {
+                responseBlob = await downloadExpenses();
+            } catch (error) {
+                console.error(error);
+                if (error.message) toast.error(error.message);
+                if (error.redirect) navigate(error.redirect);
+            }
+        }
+        
+        if (responseBlob) {
+            // file name and download url
+            let excelFileName = "detailed_list_of_"+type+".xlsx";
             
+            const downloadUrl = window.URL.createObjectURL(responseBlob);
+            
+            // It creats an anchor tag with download url and filename
+            const anchorTag = document.createElement('a');
+            anchorTag.href = downloadUrl;
+            anchorTag.download = excelFileName;
+    
+            // Add the anchor tag to the function caller's body, i.e., the download button and remove it after one click
+            document.body.appendChild(anchorTag);
+            anchorTag.click();
+            anchorTag.parentNode.removeChild(anchorTag);
+            window.URL.revokeObjectURL(downloadUrl);
+    
+            // Toaster message for successful download
+            toast.success("Details of all "+type+" is being downloaded!");
+            setIsDownloading(false);
+    
         }
     }
     
     // Function to email income/expense details for this month
-    const emailDetails = () => {
+    const emailDetails = async () => {
+        setIsEmailSending(true);
+
         if (type === "income") {
-            
+            try {
+                await emailIncomes();
+                toast.success("Email for "+type+"s is sent to your registered email address!");
+            } catch (error) {
+                console.error(error);
+                if (error.message) toast.error(error.message);
+                if (error.redirect) navigate(error.redirect);
+            } finally {
+                setIsEmailSending(false);
+            }
         } 
         else if (type === "expense") {
-            
+            try {
+                await emailExpenses();
+                toast.success("Email for "+type+"s is sent to your registered email address!");
+            } catch (error) {
+                console.error(error);
+                if (error.message) toast.error(error.message);
+                if (error.redirect) navigate(error.redirect);
+            } finally {
+                setIsEmailSending(false);
+            }
         }
     }
 
     // Corfirmation toaster box for deletion
-    const handleCorfirmation = (transaction) => {
+    const handleConfirmation = (transaction) => {
         return toast((t) => (
             <div className="rounded flex flex-col items-center justify-center gap-2 font-medium">
                 <span className="flex flex-col items-center justify-center gap-3">
@@ -120,20 +181,32 @@ return (
                 <button 
                 type="button"
                 onClick={() => downloadDetails()}
-                disabled={transactions.length === 0}
-                className="flex items-center gap-2 justify-center sm:w-38 rounded-xl sm:px-4 px-2 py-2 text-[16px] font-bold shadow-[inset_2px_30px_15px_rgba(255,255,255,0.6)] transition-all 
+                disabled={transactions.length === 0 || isDownloading}
+                className="flex items-center gap-2 justify-center w-auto rounded-xl sm:px-4 px-2 py-2 text-[16px] font-bold shadow-[inset_2px_30px_15px_rgba(255,255,255,0.6)] transition-all 
                 hover:shadow-[inset_2px_30px_25px_rgba(255,255,255,0.7)] active:shadow-[inset_2px_30px_35px_rgba(255,255,255)] hover:cursor-pointer disabled:shadow-none disabled:opacity-60 disabled:bg-white/60 disabled:cursor-not-allowed">
-                    <FolderArrowDownIcon className="h-7 opacity-90" />
-                    <p className="hidden sm:inline opacity-90">Download</p>
+                    {
+                        isDownloading ?
+                        <ArrowPathIcon className="h-7 opacity-90 animate-spin" /> :
+                        <FolderArrowDownIcon className="h-7 opacity-90" />
+                    }
+                    <p className="hidden sm:inline opacity-90">
+                        {isDownloading ? 'Downloading...' : 'Download'}
+                    </p>
                 </button>
                 <button 
                 type="button"
                 onClick={() => emailDetails()}
-                disabled={transactions.length === 0}
+                disabled={transactions.length === 0 || isEmailSending}
                 className="flex items-center gap-2 justify-center sm:w-38 rounded-xl sm:px-4 px-2 py-2 text-[16px] font-bold shadow-[inset_2px_30px_15px_rgba(255,255,255,0.6)] transition-all 
                 hover:shadow-[inset_2px_30px_25px_rgba(255,255,255,0.7)] active:shadow-[inset_2px_30px_35px_rgba(255,255,255)] hover:cursor-pointer disabled:shadow-none disabled:opacity-60 disabled:bg-white/60 disabled:cursor-not-allowed">
-                    <EnvelopeIcon className="h-7 opacity-90" />
-                    <p className="hidden sm:inline opacity-90">Email</p>
+                    {
+                        isEmailSending ?
+                        <ArrowPathIcon className="h-7 opacity-90 animate-spin" /> :
+                        <EnvelopeIcon className="h-7 opacity-90" />
+                    }
+                    <p className="hidden sm:inline opacity-90">
+                        {isEmailSending ? 'Sending...' : 'Email'}
+                    </p>
                 </button>
             </div>
         </span>
@@ -149,8 +222,8 @@ return (
                         onMouseLeave={() => setHoveringRow(null)}
                         className={`w-full grid grid-cols-[auto_1fr] gap-2 md:items-center px-6 py-5 rounded-xl transition-all
                     ${hoveringRow === (transaction.id || index)
-                                ? 'shadow-[inset_2px_80px_30px_rgba(255,255,255,0.7)]'
-                                : 'shadow-[inset_2px_60px_65px_rgba(255,255,255,0.7)]'}
+                                ? 'shadow-[inset_2px_90px_105px_rgba(255,255,255)]'
+                                : 'shadow-[inset_2px_50px_80px_rgba(255,255,255,0.7)]'}
                     `}>
                         {/* This will show user given icon if present or else the default one */}
                         {transaction.iconUrl
@@ -183,8 +256,8 @@ return (
                                 <p className="hidden sm:flex sm:text-[15px] text-[#777676] transition-all gap-2 items-center">
                                     {
                                         type === "income" ?
-                                        <ArrowDownTrayIcon className="w-5" />
-                                        : <ArrowUpTrayIcon className="w-5" />
+                                        <ArrowDownTrayIcon className="w-4" />
+                                        : <ArrowUpTrayIcon className="w-4" />
                                     }
                                     {format(transaction.date, 'do MMMM, yyyy')}
                                 </p>
@@ -193,7 +266,7 @@ return (
                             {/* This section will show the amount and remove button */}
                             <span className="h-12 flex md:items-center md:justify-center overflow-hidden transition-all">
                                 <button
-                                    onClick={() => handleCorfirmation(transaction)}
+                                    onClick={() => handleConfirmation(transaction)}
                                     disabled={isLoading === transaction.id}
                                     className={`md:mr-2 bg-white/50 rounded-xl hover:cursor-pointer hover:bg-white/80 active:bg-white disabled:cursor-not-allowed disabled:bg-black/20 overflow-hidden transition-all
                                     ${hoveringRow === (transaction.id || index) || (isLoading === transaction.id) ? 'w-12 mr-2' : 'w-0'}`}

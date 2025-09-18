@@ -131,7 +131,7 @@ const Income = () => {
       }
 
       {/* Main income display section */}
-      <section className="w-full md:h-[87%] h-11/12 rounded-xl text-[#423e36] bg-white/50 overflow-y-auto overflow-x-hidden thin-scrollbar">
+      <section className="w-full md:h-[88%] h-11/12 rounded-2xl text-[#423e36] bg-white/50 overflow-y-auto overflow-x-hidden thin-scrollbar">
         
         {/* Need to check if any incomes are available or not */}
         {
