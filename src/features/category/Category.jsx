@@ -63,7 +63,7 @@ const Category = () => {
 
   return (
 
-    <section className="md:px-5 md:py-0 w-full h-screen overflow-hidden thin-scrollbar pt-20 md:pt-3">
+    <section className="md:px-5 md:py-0 px-0 w-full h-screen overflow-hidden thin-scrollbar pt-20 md:pt-3">
       
       {/* Title with heading, icon and button */}
       <section className="flex w-full justify-between px-6 md:py-5 py-3">
@@ -90,7 +90,7 @@ const Category = () => {
       </section>
 
       {/* Main category display section */}
-      <section className="w-full md:h-[87%] h-11/12 py-5 px-8 rounded-xl text-[#423e36] bg-white/50 overflow-y-auto overflow-x-hidden thin-scrollbar">
+      <section className="w-full md:h-[88%] h-11/12 py-5 rounded-2xl text-[#423e36] bg-white/50 overflow-y-auto overflow-x-hidden thin-scrollbar">
 
         {/* Need to check any categories are available or not */
         categories.length === 0 ?
@@ -103,7 +103,7 @@ const Category = () => {
         :
 
         /* Heading and category section */
-        <div className="">
+        <div className="px-8">
           <span className="text-lg font-bold">Categorized spendings and incomes</span>
           <section className="w-full h-full flex flex-wrap gap-x-8 gap-y-5 pt-5">
             {
