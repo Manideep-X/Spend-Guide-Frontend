@@ -12,7 +12,8 @@ export const ASSETS = {
     icon: "../src/assets/icon.png",
     iconNoBg: "../src/assets/icon_no_bg.png",
     background: "../src/assets/bg_img.png",
-    backgroundLight: "../src/assets/bg_img_light_ex.png"
+    backgroundLight: "../src/assets/bg_img_light.png",
+    cityBackground: "../src/assets/city_background.png"
 }
 
 // Set the currency as Dollar
@@ -51,3 +52,8 @@ export const CATEGORY_TYPE_AND_LABEL = [
         iconSelected: WalletIconSolid 
     }
 ];
+
+export const LANDING_TEXT = {
+    heading: "Guidance for Your Financial Spendings",
+    para: "Organizing spendings and incomes is always a messy task. Spend Guide makes things easier for you by organizing and giving overviews to make your stay on right track."
+}
