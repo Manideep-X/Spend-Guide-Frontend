@@ -3,11 +3,12 @@ import { API_ENDPOINTS } from "../utils/EndpointsConfig"
 import { GetReqHeader } from "../utils/GetReqHeader"
 
 // Gets a JSON of :
-// 1. total income
-// 2. total expense
-// 3. last 5 incomes
-// 4. last 5 expenses
-// 5. last 10 transactions
+// 1. totalBalance
+// 1. totalIncome
+// 2. totalExpense
+// 3. last5Incomes
+// 4. last5Expenses
+// 5. last10Transactions
 
 const getDashboardDetails = async () => {
 
