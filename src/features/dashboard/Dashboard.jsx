@@ -51,7 +51,7 @@ const Dashboard = () => {
     return <EmptyDashFiller />
 
   return (
-    <section className="md:px-5 px-1 flex flex-col gap-6 w-full h-screen overflow-x-hidden overflow-y-auto thin-scrollbar text-[#423e36] pt-20 md:pt-3">
+    <section className="md:px-5 px-3 flex flex-col gap-5 w-full h-screen overflow-x-hidden overflow-y-auto thin-scrollbar text-[#423e36] pt-20 md:pt-3">
       <section className="w-full flex flex-col md:flex-row items-center justify-between">
         
         {/* amount card for total income, expense & balance */}
@@ -62,7 +62,7 @@ const Dashboard = () => {
         />
 
       </section>
-      <section className="w-full flex flex-col md:flex-row items-center justify-between gap-6">
+      <section className="w-full flex flex-row flex-wrap items-center justify-between gap-5">
         
         {/* recent transaction card for last 10 transaction */}
         <RecentTransactionCard 
@@ -84,7 +84,7 @@ const Dashboard = () => {
         }
 
       </section>
-      <section className="w-full flex flex-col md:flex-row items-center justify-between gap-6 mb-4">
+      <section className="w-full flex flex-wrap items-center justify-between gap-5 mb-4">
         
         {/* recent transaction card for last 5 incomes */}
         {
