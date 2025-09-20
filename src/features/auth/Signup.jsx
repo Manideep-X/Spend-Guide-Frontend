@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../layout/Footer";
 import { ASSETS } from "../../utils/GetAssets";
 import { Input, NameInput } from "./components/Input";
-import { validateSignup } from "./components/validating";
+import { validateSignup } from "./components/Validating";
 import { signup } from "../../services/AuthService";
 import toast from "react-hot-toast";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
