@@ -13,7 +13,9 @@ export const ASSETS = {
     iconNoBg: "../src/assets/icon_no_bg.png",
     background: "../src/assets/bg_img.png",
     backgroundLight: "../src/assets/bg_img_light.png",
-    cityBackground: "../src/assets/city_background.png"
+    cityBackground: "../src/assets/city_background.png",
+    screenshotPc: "../src/assets/screenshot_pc.png",
+    screenshotMobile: "../src/assets/screenshot_mobile.png",
 }
 
 // Set the currency as Dollar
@@ -54,6 +56,22 @@ export const CATEGORY_TYPE_AND_LABEL = [
 ];
 
 export const LANDING_TEXT = {
-    heading: "Guidance for Your Financial Spendings",
-    para: "Organizing spendings and incomes is always a messy task. Spend Guide makes things easier for you by organizing and giving overviews to make your stay on right track."
+    heading: "Guidance for Your Financial ",
+    heading2: "Spendings",
+    para: "Organize your incomes and expenditures to stay on track.",
+    para2: "Get seamless and secure way to manage your finances, providing valuable insights and helping you stay on top of your budget.",
+    imageText: "Get insights of your spending and incomes to achieve your goal across all devices",
+    buttonText: "Get going for Free",
+    aboutMainHead: "Why to choose ",
+    aboutMainHead2: "Spend",
+    aboutMainHead3: " Guide?",
+    aboutHead1: "Easy Logging & Categorizing",
+    aboutPara1: "Log your income/expense details and categorize them with the most friendly interface.",
+    aboutHead2: "Insightful Reports",
+    aboutPara2: "Filter your transactions or visualize your spending pattern with graphs and charts.",
+    aboutHead3: "Private and Secure Logging",
+    aboutPara3: "Your transaction data is end-to-end encrypted and only visible to you.",
+    endHead: "Ready to take control of your ",
+    endHead2: "spendings?",
+    endPara: "Sign up for free today to get started with ease."
 }
