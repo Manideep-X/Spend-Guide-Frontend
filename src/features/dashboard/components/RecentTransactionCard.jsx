@@ -10,7 +10,7 @@ const RecentTransactionCard = ({
   const formatter = Intl.NumberFormat("en-US");
 
   return (
-    <section className="relative flex md:grow flex-col items-center justify-center overflow-x-hidden overflow-y-auto thin-scrollbar-light rounded-2xl bg-white/60 h-[5in]">
+    <section className="relative flex flex-1 w-full flex-col min-w-[3.5in] items-center justify-center overflow-x-hidden overflow-y-auto thin-scrollbar-light rounded-2xl bg-white/70 h-[5in]">
 
       {/* Navbar of transaction card */}
       <div className="flex items-center justify-between px-4 py-2 sticky top-0 w-full bg-white/60 backdrop-blur-sm">
@@ -33,10 +33,10 @@ const RecentTransactionCard = ({
       </div>
 
       {/* Body of the transaction card */}
-      <div className="flex flex-col w-full h-full pt-6 px-8">
+      <div className="flex flex-col w-full h-full pt-6 md:px-8 px-3">
         {
           transactions.map((transaction, index) => (
-            <div key={index} className="flex w-[100%] h-16 px-1 py-3 items-center justify-between border-b border-[#423e363a]">
+            <div key={index} className="flex w-full h-16 px-1 py-3 items-center justify-between border-b border-[#423e363a]">
               {
                 transaction?.iconUrl ? 
                 <img 
@@ -58,7 +58,7 @@ const RecentTransactionCard = ({
 
               {(type === "income" || transaction?.type === "income")
                 ?
-                <div className="grow-0 flex font-bold items-center justify-center sm:w-28 w-36 h-full py-3 text-white rounded-xl bg-[#29a943e1]">
+                <div className="grow-0 flex font-bold items-center justify-center sm:w-28 w-24 h-full py-3 text-white rounded-xl bg-[#29a943e1]">
                   <PlusIcon className="h-5 py-1 stroke-[3.5]" />
                   <p className="sm:text-inherit text-sm">
                     {CURRENCY}{formatter.format(transaction.amount)}
@@ -66,7 +66,7 @@ const RecentTransactionCard = ({
                   <ArrowTrendingUpIcon className="h-full pr-[2px] stroke-2 ml-[2px]" />
                 </div>
                 :
-                <div className="grow-0 flex font-bold items-center justify-center sm:w-28 w-36 h-full py-3 text-white rounded-xl bg-red-500/90">
+                <div className="grow-0 flex font-bold items-center justify-center sm:w-28 w-24 h-full py-3 text-white rounded-xl bg-red-500/90">
                   <MinusIcon className="h-5 py-1 stroke-[3.5]" />
                   <p className="sm:text-inherit text-sm">
                     {CURRENCY}{formatter.format(transaction.amount)}

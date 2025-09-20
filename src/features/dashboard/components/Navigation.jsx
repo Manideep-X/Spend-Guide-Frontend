@@ -16,7 +16,7 @@ const Navigation = () => {
                         `}>
 
             {/* Background Modification */}
-            <div className="absolute left-0 top-0 w-full h-full md:bg-white/55 bg-white/30 -z-10"></div>
+            <div className="absolute left-0 top-0 w-full h-full md:bg-white/55 bg-white/45 -z-10"></div>
             
             {/* Mobile navigation button and Logo */}
             <div className="flex items-center md:justify-center justify-between w-full z-10">
