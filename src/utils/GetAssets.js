@@ -7,15 +7,22 @@ import {
     AdjustmentsHorizontalIcon as AdjustmentsHorizontalIconSolid
 } from "@heroicons/react/24/solid"
 
+import logo from "../assets/logo.png"
+import icon from "../assets/icon.png"
+import icon_no_bg from "../assets/icon_no_bg.png"
+import bg_img from "../assets/bg_img.png"
+import bg_img_light from "../assets/bg_img_light.png"
+import screenshot_pc from "../assets/screenshot_pc.png"
+import screenshot_mobile from "../assets/screenshot_mobile.png"
+
 export const ASSETS = {
-    logo: "../src/assets/logo.png",
-    icon: "../src/assets/icon.png",
-    iconNoBg: "../src/assets/icon_no_bg.png",
-    background: "../src/assets/bg_img.png",
-    backgroundLight: "../src/assets/bg_img_light.png",
-    cityBackground: "../src/assets/city_background.png",
-    screenshotPc: "../src/assets/screenshot_pc.png",
-    screenshotMobile: "../src/assets/screenshot_mobile.png",
+    logo,
+    icon,
+    iconNoBg: icon_no_bg,
+    background: bg_img,
+    backgroundLight: bg_img_light,
+    screenshotPc: screenshot_pc,
+    screenshotMobile: screenshot_mobile,
 }
 
 // Set the currency as Dollar

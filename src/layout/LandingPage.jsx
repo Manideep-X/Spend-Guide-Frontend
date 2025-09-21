@@ -42,7 +42,7 @@ const LandingPage = () => {
                 <ul className="flex flex-col md:flex-row grow items-center md:justify-center justify-around">
                     <li><a className="block w-full sm:w-28 px-5 sm:border-r sm:border-black/20 py-3 rounded-l-2xl sm:bg-white/80 hover:underline hover:font-black hover:tracking-widest transition-all md:text-[16px] text-xl text-center" href="#home">Home</a></li>
                     <li><a className="block w-full sm:w-28 px-5 py-3 sm:bg-white/80 hover:underline hover:font-black hover:tracking-widest transition-all md:text-[16px] text-xl text-center" href="#about">About</a></li>
-                    <li><a className="block w-full sm:w-28 px-5 sm:border-l sm:border-black/20 py-3 rounded-r-2xl sm:bg-white/80 hover:underline hover:font-black hover:tracking-blockdest transition-all md:text-[16px] text-xl text-center" href="#links">Links</a></li>
+                    <li><a className="block w-full sm:w-28 px-5 sm:border-l sm:border-black/20 py-3 rounded-r-2xl sm:bg-white/80 hover:underline hover:font-black hover:tracking-widest transition-all md:text-[16px] text-xl text-center" href="#links">Links</a></li>
                 </ul>
                 <div className="flex items-center justify-between gap-3 p-10 md:p-0">
                     <button
