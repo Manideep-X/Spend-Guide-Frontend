@@ -75,11 +75,13 @@ const Dashboard = () => {
 
         {/* balance pie chart for transaction overview */}
         {
-          dashboardDetails?.totalIncome && dashboardDetails?.totalBalance &&
+          ( dashboardDetails?.totalIncome !== 0 && 
+            dashboardDetails?.totalBalance >= 0 )
+          &&
           <BalancePieChart
-            totalIncome={dashboardDetails.totalIncome || 0}
+            totalIncome={dashboardDetails.totalIncome}
             totalExpense={dashboardDetails.totalExpense || 0}
-            totalBalance={dashboardDetails.totalBalance || 0}
+            totalBalance={dashboardDetails.totalBalance}
           />
         }
 
