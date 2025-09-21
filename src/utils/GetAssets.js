@@ -55,6 +55,19 @@ export const CATEGORY_TYPE_AND_LABEL = [
     }
 ];
 
+export const DASH_TIPS = {
+    heading: "Tips to get started",
+    tipsHead1: "Welcome ",
+    tipsHead2: "Here are some tips you can follow to get started",
+    tips1: "Start by creating new categories for income or expense in",
+    tipsButton1: "category section",
+    tips2: "Then, add new income source in the",
+    tipsButton2: "income section",
+    tips3: "And/or, add new expense source in the",
+    tipsButton3: "expense section",
+    note: "Atleast one category of each type(income,expense) is required before adding income and/or expense source."
+};
+
 export const LANDING_TEXT = {
     heading: "Guidance for Your Financial ",
     heading2: "Spendings",
@@ -74,4 +87,4 @@ export const LANDING_TEXT = {
     endHead: "Ready to take control of your ",
     endHead2: "spendings?",
     endPara: "Sign up for free today to get started with ease."
-}
+};

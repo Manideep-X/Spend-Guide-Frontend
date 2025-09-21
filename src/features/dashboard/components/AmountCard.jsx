@@ -20,21 +20,19 @@ const AmountCard = ({ totalIncome, totalExpense, totalBalance }) => {
         </div>
       </div>
 
-      {/* total expense */
-        totalExpense &&
-        <div className="flex flex-1 sm:min-w-86 min-w-82 px-8 py-5 bg-white/50 rounded-2xl items-center justify-between gap-2 shadow-xl/10">
-          <div className="relative">
-            <ArrowTrendingDownIcon className="absolute -bottom-2 -right-4 stroke-2 w-10 rounded-full p-2 text-white shadow-xl/30 bg-[#C21807]" />
-            <CreditCardIcon className="w-20 p-5 rounded-2xl bg-white/70 shadow-lg/30" />
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-right w-full opacity-70">
-              Total Expense
-            </p>
-            <p className="text-2xl font-bold text-right w-full text-shadow-lg/10">{totalExpense}</p>
-          </div>
+      {/* total expense */}
+      <div className="flex flex-1 sm:min-w-86 min-w-82 px-8 py-5 bg-white/50 rounded-2xl items-center justify-between gap-2 shadow-xl/10">
+        <div className="relative">
+          <ArrowTrendingDownIcon className="absolute -bottom-2 -right-4 stroke-2 w-10 rounded-full p-2 text-white shadow-xl/30 bg-[#C21807]" />
+          <CreditCardIcon className="w-20 p-5 rounded-2xl bg-white/70 shadow-lg/30" />
         </div>
-      }
+        <div>
+          <p className="text-sm font-semibold text-right w-full opacity-70">
+            Total Expense
+          </p>
+          <p className="text-2xl font-bold text-right w-full text-shadow-lg/10">{totalExpense}</p>
+        </div>
+      </div>
 
       {/* total balance */}
       <div className="flex flex-1 sm:min-w-86 min-w-82 px-8 py-5 bg-white/50 rounded-2xl items-center justify-between gap-2 shadow-xl/10">
