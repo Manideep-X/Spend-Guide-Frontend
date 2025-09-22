@@ -15,7 +15,7 @@ const LandingPage = () => {
 
             {/* navbar for landing page */}
             <nav 
-                className={`fixed z-50 top-0 left-0 w-full flex flex-col gap-5 md:gap-0 md:flex-row items-center justify-between px-5 py-3 font-semibold bg-white/10 backdrop-blur-sm md:h-auto overflow-hidden ${navExpand ? 'h-1/2 shadow-xl/15 rounded-b-2xl' : 'h-[80px]'} transition-all`}
+                className={`fixed z-50 top-0 left-0 w-full flex flex-col gap-3 md:gap-0 md:flex-row items-center justify-between px-5 py-3 font-semibold bg-white/10 backdrop-blur-sm md:h-auto overflow-hidden ${navExpand ? 'sm:h-1/2 h-7/12 shadow-xl/15 rounded-b-2xl' : 'h-[80px]'} transition-all`}
             >
 
                 <div className="flex items-center justify-between w-full md:w-auto">
