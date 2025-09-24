@@ -1,10 +1,11 @@
-export const API_BASE_URL = "https://spend-guide.onrender.com/api/v1";
+// For Production
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // For local
 // export const API_BASE_URL = "http://localhost:8082/api/v1";
 
-const CLOUDNAME_CLOUDINARY = "dzujr0hdo";
-export const UPLOAD_PRESET_CLOUDINARY = "SpendGuide";
+const UPLOAD_IMG = import.meta.env.VITE_UPLOAD_PRESET_CLOUDINARY;
+export const UPLOAD_PRESET_CLOUDINARY = import.meta.env.VITE_UPLOAD_PRESET_CLOUDINARY;
 
 export const API_ENDPOINTS = {
     login: `${API_BASE_URL}/login`,
@@ -19,7 +20,7 @@ export const API_ENDPOINTS = {
     downloadExpenseDetails: `${API_BASE_URL}/excel/download-expense`,
     emailIncomeDetails: `${API_BASE_URL}/excel/email-income`,
     emailExpenseDetails: `${API_BASE_URL}/excel/email-expense`,
-    uploadImg: `https://api.cloudinary.com/v1_1/${CLOUDNAME_CLOUDINARY}/image/upload`
+    uploadImg: `${UPLOAD_IMG}`
 };
 
 export const TEST_TOKEN_ENDPOINT = `${API_BASE_URL}/test`;
