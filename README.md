@@ -1,8 +1,7 @@
 <!-- Logo -->
-<div style="display: flex; gap: 12px; align-items: center; justify-content: center;">
-    <p style="margin: 0; font-size: 40px; font-weight: 600; height: 100%;">Frontend of </p>
-    <img src="src/assets/logo.png" alt="Spend Guide" height="80" />
-</div>
+# **Frontend of**
+<img src="src/assets/logo.png" alt="Spend Guide" height="80" />
+
 <div style="display: flex; align-items: center; justify-content: center;">
 
 [![Netlify](https://img.shields.io/badge/deployed%20on%20netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7)](https://www.netlify.com/)
@@ -12,23 +11,15 @@
 
 #
 
-<!-- Screen shots -->
+<!-- Screenshots -->
 <div 
     style="display:flex; flex-direction: column; align-items: center; justify-content: between; width: 100%;padding-bottom: 65px;" 
 >
     <div style="display:flex; flex-direction: column; align-items: center; justify-content: between; width: 100%;">
-        <div style="position: relative; width: 90%; border-radius: 14px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);">
-            <img
-                src="src/assets/screenshot_pc.png"
-                alt="PC screenshot"
-                style="border-radius: 14px; border: 4px solid white;"
-            />
-            <img
-                src="src/assets/screenshot_mobile.png"
-                alt="Mobile screenshot"
-                style="border-radius: 14px; border: 4px solid white; width: 17%; position: absolute; bottom: -12.5%; left: 10%; box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;"
-            />
-        </div>
+        <img
+            src="src/assets/screenshot.png"
+            alt="PC screenshot"
+        />
     </div>
 </div>
 
