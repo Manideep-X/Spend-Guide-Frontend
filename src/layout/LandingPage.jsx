@@ -2,19 +2,35 @@ import { ArrowRightEndOnRectangleIcon, Bars3Icon, ClipboardDocumentListIcon, Pre
 import { ASSETS, LANDING_TEXT } from "../utils/GetAssets"
 import { useNavigate } from "react-router-dom"
 import Footer from "./Footer";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ComputerDesktopIcon, PaperAirplaneIcon } from "@heroicons/react/24/solid";
 
 const LandingPage = () => {
 
     const navigate = useNavigate();
     const [navExpand, setNavExpand] = useState(false);
+    const navRef = useRef(null);
+
+    useEffect(() => {
+      const touchOutsideNav = (e) => {
+        if (navRef.current && !navRef.current.contains(e.target)) {
+            setNavExpand(false);
+        }
+      }
+      document.addEventListener("mousedown", touchOutsideNav);
+    
+      return () => {
+        document.removeEventListener("mousedown", touchOutsideNav);
+      }
+    }, [navRef]);
+    
 
     return (
         <section className="relative w-full h-screen text-[#423e36] thin-scrollbar overflow-x-hidden">
 
             {/* navbar for landing page */}
             <nav 
+                ref={navRef}
                 className={`fixed z-50 top-0 left-0 w-full flex flex-col gap-3 md:gap-0 md:flex-row items-center justify-between px-5 py-3 font-semibold bg-white/10 backdrop-blur-sm md:h-auto overflow-hidden ${navExpand ? 'sm:h-1/2 h-7/12 shadow-xl/15 rounded-b-2xl' : 'h-[80px]'} transition-all`}
             >
 
