@@ -27,7 +27,8 @@
 It provides a user-friendly responsive interface to track incomes, expenses with graph and charts to visualize spending pattern.
 
 Check out the live demo of the app: [Spend Guide↗](https://spend-guide.netlify.app/)
-> IMP: Might took some time(around 2-3 mins) for first response in a while from the backend due to the limitation of [Render↗](https://render.com/) free instance.
+> IMP: Might took some time(around 2-3 mins) for first response in a while from the backend due to the limitation of [Render↗](https://render.com/) free instance. <br>
+> If you want, you can check if the **backend server is up or not** by visiting: [Test Spend Guide↗](https://spend-guide.onrender.com/api/v1/health)
 
 - ### Features:
 
