@@ -4,7 +4,7 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 // For local
 // export const API_BASE_URL = "http://localhost:8082/api/v1";
 
-const UPLOAD_IMG = import.meta.env.VITE_UPLOAD_PRESET_CLOUDINARY;
+const UPLOAD_IMG = import.meta.env.VITE_IMG_PRESET_CLOUDINARY;
 export const UPLOAD_PRESET_CLOUDINARY = import.meta.env.VITE_UPLOAD_PRESET_CLOUDINARY;
 
 export const API_ENDPOINTS = {
